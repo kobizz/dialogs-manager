@@ -1,0 +1,38 @@
+.dialog-widget {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  background-color: rgba(0, 0, 0, 0.5); }
+  .dialog-widget * {
+    box-sizing: border-box; }
+
+.dialog-widget-content {
+  background-color: #EAEAEA;
+  position: absolute;
+  width: 350px;
+  height: 150px;
+  margin: auto;
+  border-radius: 5px;
+  box-shadow: 2px 8px 23px 3px rgba(0, 0, 0, 0.2); }
+
+.dialog-widget-header {
+  height: 20px;
+  background-image: linear-gradient(to top, #A0A09D, #D9D9D9); }
+
+.dialog-message {
+  height: 70%;
+  padding: 10px;
+  font-family: sans-serif;
+  font-size: 14px; }
+
+.dialog-buttons-wrapper {
+  text-align: center; }
+  .dialog-buttons-wrapper > button {
+    margin: 0 10px;
+    cursor: pointer; }
+
+/*# sourceMappingURL=style.css.map */
