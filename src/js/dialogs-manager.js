@@ -321,7 +321,7 @@
 
 			var ENTER_KEY = 13;
 
-			if ( event.which !== ENTER_KEY ){
+			if (event.which !== ENTER_KEY) {
 
 				event.preventDefault();
 			}
@@ -335,7 +335,7 @@
 			var TAB_KEY = 9,
 				ENTER_KEY = 13;
 
-			if ( event.which !== ENTER_KEY ){
+			if (event.which !== ENTER_KEY) {
 
 				event.preventDefault();
 			}
@@ -478,20 +478,22 @@
 	DialogsManager.addWidgetType('confirm', DialogsManager.widgets.options.extend('confirm', {
 		onReady: function () {
 			var strings = this.getSettings('strings'),
-				ESC_KEY = 27;
+				ESC_KEY = 27,
+				isDefaultCancel = this.getSettings('defaultOption') === 'cancel';
 
 			this.addButton({
 				name: 'cancel',
 				text: strings.cancel,
 				callback: this.getSettings('onCancel'),
 				hotKey: ESC_KEY,
-				focus: true
+				focus: isDefaultCancel
 			});
 
 			this.addButton({
 				name: 'ok',
 				text: strings.confirm,
-				callback: this.getSettings('onConfirm')
+				callback: this.getSettings('onConfirm'),
+				focus: !isDefaultCancel
 			});
 		},
 		getDefaultSettings: function () {
@@ -501,6 +503,8 @@
 				confirm: 'Ok',
 				cancel: 'Cancel'
 			};
+
+			settings.defaultOption = 'cancel';
 
 			return settings;
 		}
