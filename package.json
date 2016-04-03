@@ -1,6 +1,6 @@
 {
   "name": "dialogs-manager",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Dialogs Manager for websites. based on jQuery-UI",
   "main": "src/dialogs-manager.js",
   "scripts": {
