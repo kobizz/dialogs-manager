@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         },
         uglify: {
             options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd HH:MM") %> \n * author: <%= pkg.author %> \n */\n'
+                banner: '/*! <%= pkg.name %> v<%= pkg.version %> | (c) <%= pkg.author %> | https://github.com/cobicarmel/dialogs-manager/blob/master/LICENSE.txt \n <%= grunt.template.today("yyyy-mm-dd HH:MM") %> */\n'
             },
             dist: {
                 files: [{

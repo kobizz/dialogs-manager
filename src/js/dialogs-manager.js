@@ -1,3 +1,12 @@
+/*!
+ * Dialogs Manager v1.0.2
+ * https://github.com/cobicarmel/dialogs-manager/
+ *
+ * Copyright Kobi Zaltzberg
+ * Released under the MIT license
+ * https://github.com/cobicarmel/dialogs-manager/blob/master/LICENSE.txt
+ */
+
 (function ($, global) {
 	'use strict';
 
