@@ -437,7 +437,8 @@
 				position: {
 					my: 'center',
 					at: 'center center-100'
-				}
+				},
+				headerMessage: ''
 			};
 		},
 		onHide: function () {
@@ -451,6 +452,10 @@
 			this.hotKeys = {};
 
 			this.focusedButton = null;
+		},
+		onReady: function(){
+
+			this.setHeaderMessage(this.getSettings('headerMessage'));
 		},
 		onShow: function (userSettings) {
 
@@ -474,6 +479,10 @@
 			if (this.focusedButton) {
 				this.focusedButton.focus();
 			}
+		},
+		setHeaderMessage: function (message) {
+
+			this.getComponents('widgetHeader').html(message);
 		},
 		unbindHotKeys: function () {
 
@@ -506,6 +515,7 @@
 			});
 		},
 		getDefaultSettings: function () {
+
 			var settings = DialogsManager.widgets.options.prototype.getDefaultSettings.apply(this, arguments);
 
 			settings.strings = {
