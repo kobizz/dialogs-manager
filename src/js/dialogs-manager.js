@@ -495,6 +495,9 @@
 
 	DialogsManager.addWidgetType('confirm', DialogsManager.widgets.options.extend('confirm', {
 		onReady: function () {
+
+			DialogsManager.widgets.options.prototype.onReady.apply(this, arguments);
+
 			var strings = this.getSettings('strings'),
 				ESC_KEY = 27,
 				isDefaultCancel = this.getSettings('defaultOption') === 'cancel';
