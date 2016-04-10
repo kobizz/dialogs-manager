@@ -554,15 +554,24 @@
 	}));
 
 	DialogsManager.addWidgetType('popup', {
+		getDefaultSettings: function () {
+
+			return {
+				position: {
+					my: 'center',
+					at: 'center',
+					of: window
+				},
+				hide: {
+					delay: 5000
+				}
+			};
+		},
 		onShow: function () {
 
 			var $widget = this.getComponents('widget');
 
-			$widget.position({
-				my: 'center',
-				at: 'center top+100',
-				of: window
-			});
+			$widget.position(this.getSettings('position'));
 		}
 	});
 
