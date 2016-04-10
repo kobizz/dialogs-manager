@@ -569,9 +569,9 @@
 		},
 		onShow: function () {
 
-			var $widget = this.getComponents('widget');
+			var $widgetMessage = this.getComponents('message');
 
-			$widget.position(this.getSettings('position'));
+			$widgetMessage.position(this.getSettings('position'));
 
 			setTimeout(this.hide, this.getSettings('hide').delay);
 		}
