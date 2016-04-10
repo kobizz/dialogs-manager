@@ -572,6 +572,8 @@
 			var $widget = this.getComponents('widget');
 
 			$widget.position(this.getSettings('position'));
+
+			setTimeout(this.hide, this.getSettings('hide').delay);
 		}
 	});
 
