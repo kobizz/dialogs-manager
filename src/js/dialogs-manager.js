@@ -22,7 +22,7 @@
 
 			var WidgetType = function () {
 
-				Parent.call(this, typeName);
+				Parent.apply(this, arguments);
 			};
 
 			var prototype = WidgetType.prototype = new Parent(typeName);
@@ -81,7 +81,7 @@
 
 		this.createWidget = function (widgetType, properties) {
 
-			var widget = new DialogsManager.getWidgetType(widgetType)();
+			var widget = new DialogsManager.getWidgetType(widgetType)(widgetType);
 
 			properties = properties || {};
 
