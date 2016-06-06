@@ -81,7 +81,8 @@
 
 		this.createWidget = function (widgetType, properties) {
 
-			var widget = new DialogsManager.getWidgetType(widgetType)(widgetType);
+			var WidgetTypeConstructor = DialogsManager.getWidgetType(widgetType),
+				widget = new WidgetTypeConstructor(widgetType);
 
 			properties = properties || {};
 
