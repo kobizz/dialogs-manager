@@ -14,7 +14,7 @@
 	 * Dialog Manager
 	 */
 	var DialogsManager = {
-		widgets: {},
+		widgetsTypes: {},
 		createWidgetType: function (typeName, properties, Parent) {
 			if (!Parent) {
 				Parent = this.Widget;
@@ -41,10 +41,10 @@
 		addWidgetType: function (typeName, properties, Parent) {
 
 			if (properties && properties.prototype instanceof this.Widget) {
-				return this.widgets[typeName] = properties;
+				return this.widgetsTypes[typeName] = properties;
 			}
 
-			return this.widgets[typeName] = this.createWidgetType(typeName, properties, Parent);
+			return this.widgetsTypes[typeName] = this.createWidgetType(typeName, properties, Parent);
 		}
 	};
 
