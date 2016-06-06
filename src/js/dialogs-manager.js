@@ -10,6 +10,9 @@
 (function ($, global) {
 	'use strict';
 
+	/*
+	 * Dialog Manager
+	 */
 	var DialogsManager = {
 		widgets: {},
 		createWidgetType: function (typeName, properties, Parent) {
@@ -45,6 +48,9 @@
 		}
 	};
 
+	/*
+	 * Dialog Manager instances constructor
+	 */
 	DialogsManager.Instance = function () {
 
 		var self = this,
@@ -112,6 +118,9 @@
 		self.init();
 	};
 
+	/*
+	 * Widget types constructor
+	 */
 	DialogsManager.Widget = function (widgetName) {
 
 		var self = this,
@@ -280,6 +289,7 @@
 
 	};
 
+	// Inheritable widget methods
 	DialogsManager.Widget.prototype.buildWidget = function () {
 
 		var components = this.getComponents();
@@ -304,6 +314,9 @@
 	DialogsManager.Widget.prototype.onReady = function () {
 	};
 
+	/*
+	 * Default basic widget types
+	 */
 	DialogsManager.addWidgetType('tool-tip', {
 		onShow: function () {
 
@@ -577,5 +590,6 @@
 		}
 	});
 
+	// Exporting the DialogsManager variable to global
 	global.DialogsManager = DialogsManager;
 })('function' === typeof require ? require('jquery') : jQuery, 'undefined' !== typeof module && module.exports || window);
