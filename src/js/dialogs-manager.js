@@ -45,6 +45,10 @@
 			}
 
 			return this.widgetsTypes[typeName] = this.createWidgetType(typeName, properties, Parent);
+		},
+		getWidgetType: function (widgetType) {
+
+			return this.widgetsTypes[widgetType];
 		}
 	};
 
@@ -77,7 +81,7 @@
 
 		this.createWidget = function (widgetType, properties) {
 
-			var widget = new DialogsManager.widgets[widgetType]();
+			var widget = new DialogsManager.getWidgetType(widgetType)();
 
 			properties = properties || {};
 
@@ -506,10 +510,10 @@
 		}
 	});
 
-	DialogsManager.addWidgetType('confirm', DialogsManager.widgets.options.extend('confirm', {
+	DialogsManager.addWidgetType('confirm', DialogsManager.getWidgetType('options').extend('confirm', {
 		onReady: function () {
 
-			DialogsManager.widgets.options.prototype.onReady.apply(this, arguments);
+			DialogsManager.getWidgetType('options').prototype.onReady.apply(this, arguments);
 
 			var strings = this.getSettings('strings'),
 				ESC_KEY = 27,
@@ -532,7 +536,7 @@
 		},
 		getDefaultSettings: function () {
 
-			var settings = DialogsManager.widgets.options.prototype.getDefaultSettings.apply(this, arguments);
+			var settings = DialogsManager.getWidgetType('options').prototype.getDefaultSettings.apply(this, arguments);
 
 			settings.strings = {
 				confirm: 'Ok',
@@ -545,7 +549,7 @@
 		}
 	}));
 
-	DialogsManager.addWidgetType('alert', DialogsManager.widgets.options.extend('alert', {
+	DialogsManager.addWidgetType('alert', DialogsManager.getWidgetType('options').extend('alert', {
 		onReady: function () {
 			var strings = this.getSettings('strings');
 
@@ -556,7 +560,7 @@
 			});
 		},
 		getDefaultSettings: function () {
-			var settings = DialogsManager.widgets.options.prototype.getDefaultSettings.apply(this, arguments);
+			var settings = DialogsManager.getWidgetType('options').prototype.getDefaultSettings.apply(this, arguments);
 
 			settings.strings = {
 				confirm: 'Ok'
