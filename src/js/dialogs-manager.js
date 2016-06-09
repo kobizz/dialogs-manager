@@ -173,7 +173,7 @@
 			settings.classes = {
 				globalPrefix: parentSettings.classPrefix,
 				prefix: prefix,
-				Widget: 'dialog-widget',
+				widget: 'dialog-widget',
 				linkedActive: prefix + '-linked-active'
 			};
 
