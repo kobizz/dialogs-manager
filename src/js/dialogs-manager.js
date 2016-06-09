@@ -158,6 +158,13 @@
 			self.addComponent('widget');
 
 			self.addComponent('message');
+
+			var id = self.getSettings('id');
+
+			if (id) {
+
+				self.getComponents('widget').attr('id', id);
+			}
 		};
 
 		var initSettings = function (parent, userSettings) {
