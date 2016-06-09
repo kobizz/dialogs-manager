@@ -1,5 +1,5 @@
 /*!
- * Dialogs Manager v1.1.1
+ * Dialogs Manager v1.2.0
  * https://github.com/cobicarmel/dialogs-manager/
  *
  * Copyright Kobi Zaltzberg
