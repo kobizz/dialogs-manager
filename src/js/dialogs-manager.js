@@ -280,6 +280,8 @@
 			}
 
 			events[eventName].push(callback);
+
+			return self;
 		};
 
 		this.setMessage = function (message) {
@@ -452,6 +454,8 @@
 			if (options.focus) {
 				this.focusedButton = $button;
 			}
+
+			return self;
 		},
 		bindHotKeys: function () {
 			var self = this;
@@ -535,6 +539,8 @@
 		setHeaderMessage: function (message) {
 
 			this.getComponents('widgetHeader').html(message);
+
+			return this;
 		},
 		unbindHotKeys: function () {
 
