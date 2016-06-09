@@ -130,6 +130,7 @@
 
 		var self = this,
 			settings = {},
+			events = {},
 			components = {
 				$element: 0
 			};
@@ -231,7 +232,7 @@
 				throw 'The ' + self.widgetName + ' must to be initialized from an instance of DialogsManager.Instance';
 			}
 
-			self.onInit(properties);
+			self.trigger('init', properties);
 
 			initSettings(parent, properties);
 
@@ -243,7 +244,7 @@
 				self.attachEvents();
 			}
 
-			self.onReady();
+			self.trigger('ready');
 
 			return self;
 		};
@@ -261,7 +262,7 @@
 				components.$element.removeClass(settings.classes.linkedActive);
 			}
 
-			self.onHide();
+			self.trigger('hide');
 
 			return self;
 		};
@@ -271,6 +272,14 @@
 			this.addComponent('element', element);
 
 			return self;
+		};
+
+		this.on = function (eventName, callback) {
+			if (!events[eventName]) {
+				events[eventName] = [];
+			}
+
+			events[eventName].push(callback);
 		};
 
 		this.setMessage = function (message) {
@@ -294,11 +303,29 @@
 				components.$element.addClass(settings.classes.linkedActive);
 			}
 
-			self.onShow(userSettings);
+			self.trigger('show', userSettings);
 
 			return self;
 		};
 
+		this.trigger = function (eventName, params) {
+
+			var methodName = 'on' + eventName[0].toUpperCase() + eventName.slice(1);
+
+			if (self[methodName]) {
+				self[methodName](params);
+			}
+
+			var callbacks = events[eventName];
+
+			if (!callbacks) {
+				return;
+			}
+
+			$.each(callbacks, function (index, callback) {
+				callback.call(self, params);
+			});
+		};
 	};
 
 	// Inheritable widget methods
