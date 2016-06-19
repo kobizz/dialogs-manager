@@ -115,11 +115,6 @@
 			return self;
 		};
 
-		this.popDialog = function (widget) {
-
-			Widget.show();
-		};
-
 		self.init();
 	};
 
