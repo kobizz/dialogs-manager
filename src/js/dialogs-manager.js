@@ -573,7 +573,10 @@
 			this.addButton({
 				name: 'cancel',
 				text: strings.cancel,
-				callback: this.getSettings('onCancel'),
+				callback: function (widget) {
+
+					widget.trigger('cancel');
+				},
 				hotKey: ESC_KEY,
 				focus: isDefaultCancel
 			});
@@ -581,7 +584,10 @@
 			this.addButton({
 				name: 'ok',
 				text: strings.confirm,
-				callback: this.getSettings('onConfirm'),
+				callback: function (widget) {
+
+					widget.trigger('confirm');
+				},
 				focus: !isDefaultCancel
 			});
 		},
@@ -610,7 +616,10 @@
 			this.addButton({
 				name: 'ok',
 				text: strings.confirm,
-				callback: this.getSettings('onConfirm')
+				callback: function (widget) {
+
+					widget.trigger('confirm');
+				}
 			});
 		},
 		getDefaultSettings: function () {
