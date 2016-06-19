@@ -181,6 +181,26 @@
 			};
 
 			$.extend(true, settings, userSettings);
+
+			initSettingsEvents();
+		};
+
+		var initSettingsEvents = function () {
+
+			var settings = self.getSettings();
+
+			$.each( settings, function (settingKey) {
+
+				var eventName = settingKey.match(/^on([A-Z].*)/);
+
+				if (!eventName) {
+					return;
+				}
+
+				eventName = eventName[1].charAt(0).toLowerCase() + eventName[1].slice(1);
+
+				self.on(eventName, this);
+			} );
 		};
 
 		var normalizeClassName = function (name) {
