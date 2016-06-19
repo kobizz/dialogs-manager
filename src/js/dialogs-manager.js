@@ -602,6 +602,9 @@
 
 	DialogsManager.addWidgetType('alert', DialogsManager.getWidgetType('options').extend('alert', {
 		onReady: function () {
+
+			DialogsManager.getWidgetType('options').prototype.onReady.apply(this, arguments);
+
 			var strings = this.getSettings('strings');
 
 			this.addButton({
