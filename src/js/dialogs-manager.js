@@ -570,7 +570,7 @@
 			var settings = DialogsManager.getWidgetType('options').prototype.getDefaultSettings.apply(this, arguments);
 
 			settings.strings = {
-				confirm: 'Ok',
+				confirm: 'OK',
 				cancel: 'Cancel'
 			};
 
@@ -594,7 +594,7 @@
 			var settings = DialogsManager.getWidgetType('options').prototype.getDefaultSettings.apply(this, arguments);
 
 			settings.strings = {
-				confirm: 'Ok'
+				confirm: 'OK'
 			};
 
 			return settings;
