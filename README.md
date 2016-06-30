@@ -12,7 +12,7 @@ Since this plugin based on [jQuery](http://jquery.com/) and using the [jQuery UI
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 ```
 
-__Please note:__ Since the jQuery UI Library is too large, and you need only the position feature, it's highly recommended to download him through the official [Download Builder](http://jqueryui.com/download/) in jQuery UI site. Just choose only the _position_ feature and download him to your local folder.
+__Please note:__ Since the jQuery UI Library is too large, and you need only the position feature, it's highly recommended to download it through the official [Download Builder](http://jqueryui.com/download/) in jQuery UI site. Just choose only the _position_ feature and download it to your local folder.
 
 After youv'e included all the required scripts, include the Dialogs Manager core file in your page:
 ```html
