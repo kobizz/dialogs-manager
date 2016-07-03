@@ -652,9 +652,7 @@
 		},
 		onShow: function () {
 
-			var $widgetMessage = this.getComponents('message');
-
-			$widgetMessage.position(this.getSettings('position'));
+			this.getComponents('message').position(this.getSettings('position'));
 
 			setTimeout(this.hide, this.getSettings('hide').delay);
 		}
