@@ -532,6 +532,9 @@
 		},
 		onShow: function (userSettings) {
 
+			var self = this;
+
+			self.placeWidget(userSettings);
 
 			if (self.getSettings('refreshPosition')) {
 
@@ -540,6 +543,19 @@
 					self.placeWidget();
 				} );
 			}
+
+			self.bindHotKeys();
+
+			if (!self.focusedButton) {
+				self.focusedButton = self.buttons[0];
+			}
+
+			if (self.focusedButton) {
+				self.focusedButton.focus();
+			}
+		},
+		placeWidget: function (userSettings) {
+
 			var components = this.getComponents(),
 				position = this.getSettings('position');
 
@@ -550,16 +566,6 @@
 			}
 
 			components.$widgetContent.position(position);
-
-			this.bindHotKeys();
-
-			if (!this.focusedButton) {
-				this.focusedButton = this.buttons[0];
-			}
-
-			if (this.focusedButton) {
-				this.focusedButton.focus();
-			}
 		},
 		setHeaderMessage: function (message) {
 
