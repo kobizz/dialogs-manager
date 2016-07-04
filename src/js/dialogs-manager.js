@@ -63,7 +63,7 @@
 
 		var initElements = function () {
 
-			elements.$body = $('body');
+			elements.body = $('body');
 		};
 
 		var initSettings = function (options) {
@@ -127,7 +127,7 @@
 		var callEffect = function (intent) {
 
 			var effect = settings.effects[intent],
-				$widget = elements.$widget;
+				$widget = elements.widget;
 
 			if ($.isFunction(effect)) {
 				effect.call($widget);
@@ -205,7 +205,7 @@
 
 		this.addElement = function (name, element, type) {
 
-			var $newElement = elements['$' + name] = $(element || '<div>'),
+			var $newElement = elements[name] = $(element || '<div>'),
 				className = settings.classes.prefix + '-';
 
 			name = normalizeClassName(name);
@@ -259,7 +259,7 @@
 
 		this.getElements = function (item) {
 
-			return item ? elements['$' + item] : elements;
+			return item ? elements[item] : elements;
 		};
 
 		this.hide = function () {
@@ -283,7 +283,7 @@
 
 		this.setMessage = function (message) {
 
-			elements.$message.html(message);
+			elements.message.html(message);
 
 			return self;
 		};
@@ -294,7 +294,7 @@
 				e.stopPropagation();
 			}
 
-			elements.$widget.appendTo('body');
+			elements.widget.appendTo('body');
 
 			callEffect('show');
 
@@ -328,7 +328,7 @@
 
 		var elements = this.getElements();
 
-		elements.$widget.html(elements.$message);
+		elements.widget.html(elements.message);
 	};
 
 	DialogsManager.Widget.prototype.getDefaultSettings = function () {
@@ -356,16 +356,16 @@
 
 			var elements = this.getElements();
 
-			if (elements.$element.length) {
+			if (elements.element.length) {
 
-				elements.$widget.position({
+				elements.widget.position({
 					at: 'left top-5',
 					my: 'left+10 bottom',
-					of: elements.$element,
+					of: elements.element,
 					collision: 'none none'
 				});
 
-				elements.$element.focus();
+				elements.element.focus();
 			}
 
 			setTimeout(this.hide, 5000);
@@ -474,9 +474,9 @@
 
 			var elements = this.getElements();
 
-			$widgetContent.append($widgetHeader, elements.$message, $buttonsWrapper);
+			$widgetContent.append($widgetHeader, elements.message, $buttonsWrapper);
 
-			elements.$widget.html($widgetContent);
+			elements.widget.html($widgetContent);
 		},
 		getDefaultSettings: function () {
 
@@ -537,13 +537,13 @@
 			var elements = this.getElements(),
 				position = this.getSettings('position');
 
-			position.of = elements.$widget;
+			position.of = elements.widget;
 
 			if (userSettings) {
 				$.extend(position, userSettings);
 			}
 
-			elements.$widgetContent.position(position);
+			elements.widgetContent.position(position);
 		},
 		setHeaderMessage: function (message) {
 
