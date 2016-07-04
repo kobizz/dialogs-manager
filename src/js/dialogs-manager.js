@@ -482,12 +482,13 @@
 				self.activeKeyDown(event);
 			};
 
-			$(window).on({
+			self.getComponents( 'window' ).on({
 				keyup: self.bindKeyUpEvents,
 				keydown: self.bindKeyDownEvents
 			});
 		},
 		buildWidget: function () {
+			this.addComponent( 'window', window );
 
 			var $widgetHeader = this.addComponent('widgetHeader'),
 				$widgetContent = this.addComponent('widgetContent'),
@@ -557,7 +558,7 @@
 		},
 		unbindHotKeys: function () {
 
-			$(window).off({
+			this.getComponents( 'window' ).off({
 				keyup: this.bindKeyUpEvents,
 				keydown: this.bindKeyDownEvents
 			});
