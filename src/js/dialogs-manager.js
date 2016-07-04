@@ -508,12 +508,15 @@
 					at: 'center center-100'
 				},
 				headerMessage: '',
-				hideOnButtonClick: true
+				hideOnButtonClick: true,
+				refreshPosition: true
 			};
 		},
 		onHide: function () {
 
 			this.unbindHotKeys();
+
+			this.getComponents( 'window' ).off( 'resize', this.placeWidget );
 		},
 		onInit: function () {
 
@@ -529,6 +532,14 @@
 		},
 		onShow: function (userSettings) {
 
+
+			if (self.getSettings('refreshPosition')) {
+
+				self.getComponents( 'window' ).on( 'resize', function () {
+
+					self.placeWidget();
+				} );
+			}
 			var components = this.getComponents(),
 				position = this.getSettings('position');
 
