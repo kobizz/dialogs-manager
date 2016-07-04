@@ -182,7 +182,7 @@
 
 			var settings = self.getSettings();
 
-			$.each( settings, function (settingKey) {
+			$.each(settings, function (settingKey) {
 
 				var eventName = settingKey.match(/^on([A-Z].*)/);
 
@@ -193,7 +193,7 @@
 				eventName = eventName[1].charAt(0).toLowerCase() + eventName[1].slice(1);
 
 				self.on(eventName, this);
-			} );
+			});
 		};
 
 		var normalizeClassName = function (name) {
@@ -434,7 +434,7 @@
 			});
 		},
 		buildWidget: function () {
-			this.addElement( 'window', window );
+			this.addElement('window', window);
 
 			var $widgetHeader = this.addElement('widgetHeader'),
 				$widgetContent = this.addElement('widgetContent'),
@@ -481,7 +481,7 @@
 
 			this.unbindHotKeys();
 
-			this.getElements( 'window' ).off( 'resize', this.placeWidget );
+			this.getElements('window').off('resize', this.placeWidget);
 		},
 		onInit: function () {
 
@@ -642,4 +642,4 @@
 
 	// Exporting the DialogsManager variable to global
 	global.DialogsManager = DialogsManager;
-})(typeof require === 'function' ? require( 'jquery' ) : jQuery, typeof module !== 'undefined' ? module.exports : window);
+})(typeof require === 'function' ? require('jquery') : jQuery, typeof module !== 'undefined' ? module.exports : window);
