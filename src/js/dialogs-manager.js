@@ -351,27 +351,6 @@
 	/*
 	 * Default basic widget types
 	 */
-	DialogsManager.addWidgetType('tool-tip', {
-		onShow: function () {
-
-			var elements = this.getElements();
-
-			if (elements.element.length) {
-
-				elements.widget.position({
-					at: 'left top-5',
-					my: 'left+10 bottom',
-					of: elements.element,
-					collision: 'none none'
-				});
-
-				elements.element.focus();
-			}
-
-			setTimeout(this.hide, 5000);
-		}
-	});
-
 	DialogsManager.addWidgetType('options', {
 		activeKeyUp: function (event) {
 
