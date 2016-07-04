@@ -58,12 +58,12 @@
 	DialogsManager.Instance = function () {
 
 		var self = this,
-			components = {},
+			elements = {},
 			settings = {};
 
-		var initComponents = function () {
+		var initElements = function () {
 
-			components.$body = $('body');
+			elements.$body = $('body');
 		};
 
 		var initSettings = function (options) {
@@ -110,7 +110,7 @@
 
 			initSettings(settings);
 
-			initComponents();
+			initElements();
 
 			return self;
 		};
@@ -126,14 +126,14 @@
 		var self = this,
 			settings = {},
 			events = {},
-			components = {
+			elements = {
 				$element: 0
 			};
 
 		var callEffect = function (intent) {
 
 			var effect = settings.effects[intent],
-				$widget = components.$widget;
+				$widget = elements.$widget;
 
 			if ($.isFunction(effect)) {
 				effect.call($widget);
@@ -149,17 +149,17 @@
 			}
 		};
 
-		var initComponents = function () {
+		var initElements = function () {
 
-			self.addComponent('widget');
+			self.addElement('widget');
 
-			self.addComponent('message');
+			self.addElement('message');
 
 			var id = self.getSettings('id');
 
 			if (id) {
 
-				self.getComponents('widget').attr('id', id);
+				self.getElements('widget').attr('id', id);
 			}
 		};
 
@@ -210,9 +210,9 @@
 			});
 		};
 
-		this.addComponent = function (name, component, type) {
+		this.addElement = function (name, element, type) {
 
-			var $newComponent = components['$' + name] = $(component || '<div>'),
+			var $newElement = elements['$' + name] = $(element || '<div>'),
 				className = settings.classes.prefix + '-';
 
 			name = normalizeClassName(name);
@@ -225,9 +225,9 @@
 
 			className += ' ' + settings.classes.globalPrefix + '-' + type;
 
-			$newComponent.addClass(className);
+			$newElement.addClass(className);
 
-			return $newComponent;
+			return $newElement;
 		};
 
 		this.getSettings = function (setting) {
@@ -251,7 +251,7 @@
 
 			initSettings(parent, properties);
 
-			initComponents();
+			initElements();
 
 			self.buildWidget();
 
@@ -264,17 +264,17 @@
 			return self;
 		};
 
-		this.getComponents = function (item) {
+		this.getElements = function (item) {
 
-			return item ? components['$' + item] : components;
+			return item ? elements['$' + item] : elements;
 		};
 
 		this.hide = function () {
 
 			callEffect('hide');
 
-			if (components.$element.length) {
-				components.$element.removeClass(settings.classes.linkedActive);
+			if (elements.$element.length) {
+				elements.$element.removeClass(settings.classes.linkedActive);
 			}
 
 			self.trigger('hide');
@@ -284,7 +284,7 @@
 
 		this.linkElement = function (element) {
 
-			this.addComponent('element', element);
+			this.addElement('element', element);
 
 			return self;
 		};
@@ -301,7 +301,7 @@
 
 		this.setMessage = function (message) {
 
-			components.$message.html(message);
+			elements.$message.html(message);
 
 			return self;
 		};
@@ -312,12 +312,12 @@
 				e.stopPropagation();
 			}
 
-			components.$widget.appendTo('body');
+			elements.$widget.appendTo('body');
 
 			callEffect('show');
 
-			if (components.$element.length) {
-				components.$element.addClass(settings.classes.linkedActive);
+			if (elements.$element.length) {
+				elements.$element.addClass(settings.classes.linkedActive);
 			}
 
 			self.trigger('show', userSettings);
@@ -348,9 +348,9 @@
 	// Inheritable widget methods
 	DialogsManager.Widget.prototype.buildWidget = function () {
 
-		var components = this.getComponents();
+		var elements = this.getElements();
 
-		components.$widget.html(components.$message);
+		elements.$widget.html(elements.$message);
 	};
 
 	DialogsManager.Widget.prototype.getDefaultSettings = function () {
@@ -376,18 +376,18 @@
 	DialogsManager.addWidgetType('tool-tip', {
 		onShow: function () {
 
-			var components = this.getComponents();
+			var elements = this.getElements();
 
-			if (components.$element.length) {
+			if (elements.$element.length) {
 
-				components.$widget.position({
+				elements.$widget.position({
 					at: 'left top-5',
 					my: 'left+10 bottom',
-					of: components.$element,
+					of: elements.$element,
 					collision: 'none none'
 				});
 
-				components.$element.focus();
+				elements.$element.focus();
 			}
 
 			setTimeout(this.hide, 5000);
@@ -440,7 +440,7 @@
 		addButton: function (options) {
 
 			var self = this,
-				$button = self.addComponent(options.name, $('<button>').text(options.text));
+				$button = self.addElement(options.name, $('<button>').text(options.text));
 
 			self.buttons.push($button);
 
@@ -461,7 +461,7 @@
 				this.hotKeys[options.hotKey] = buttonFn;
 			}
 
-			this.getComponents('buttonsWrapper').append($button);
+			this.getElements('buttonsWrapper').append($button);
 
 			if (options.focus) {
 				this.focusedButton = $button;
@@ -482,23 +482,23 @@
 				self.activeKeyDown(event);
 			};
 
-			self.getComponents( 'window' ).on({
+			self.getElements( 'window' ).on({
 				keyup: self.bindKeyUpEvents,
 				keydown: self.bindKeyDownEvents
 			});
 		},
 		buildWidget: function () {
-			this.addComponent( 'window', window );
+			this.addElement( 'window', window );
 
-			var $widgetHeader = this.addComponent('widgetHeader'),
-				$widgetContent = this.addComponent('widgetContent'),
-				$buttonsWrapper = this.addComponent('buttonsWrapper');
+			var $widgetHeader = this.addElement('widgetHeader'),
+				$widgetContent = this.addElement('widgetContent'),
+				$buttonsWrapper = this.addElement('buttonsWrapper');
 
-			var components = this.getComponents();
+			var elements = this.getElements();
 
-			$widgetContent.append($widgetHeader, components.$message, $buttonsWrapper);
+			$widgetContent.append($widgetHeader, elements.$message, $buttonsWrapper);
 
-			components.$widget.html($widgetContent);
+			elements.$widget.html($widgetContent);
 		},
 		getDefaultSettings: function () {
 
@@ -516,7 +516,7 @@
 
 			this.unbindHotKeys();
 
-			this.getComponents( 'window' ).off( 'resize', this.placeWidget );
+			this.getElements( 'window' ).off( 'resize', this.placeWidget );
 		},
 		onInit: function () {
 
@@ -538,7 +538,7 @@
 
 			if (self.getSettings('refreshPosition')) {
 
-				self.getComponents( 'window' ).on( 'resize', function () {
+				self.getElements( 'window' ).on( 'resize', function () {
 
 					self.placeWidget();
 				} );
@@ -556,26 +556,26 @@
 		},
 		placeWidget: function (userSettings) {
 
-			var components = this.getComponents(),
+			var elements = this.getElements(),
 				position = this.getSettings('position');
 
-			position.of = components.$widget;
+			position.of = elements.$widget;
 
 			if (userSettings) {
 				$.extend(position, userSettings);
 			}
 
-			components.$widgetContent.position(position);
+			elements.$widgetContent.position(position);
 		},
 		setHeaderMessage: function (message) {
 
-			this.getComponents('widgetHeader').html(message);
+			this.getElements('widgetHeader').html(message);
 
 			return this;
 		},
 		unbindHotKeys: function () {
 
-			this.getComponents( 'window' ).off({
+			this.getElements( 'window' ).off({
 				keyup: this.bindKeyUpEvents,
 				keydown: this.bindKeyDownEvents
 			});
@@ -670,7 +670,7 @@
 		},
 		onShow: function () {
 
-			this.getComponents('message').position(this.getSettings('position'));
+			this.getElements('message').position(this.getSettings('position'));
 
 			setTimeout(this.hide, this.getSettings('hide').delay);
 		}
