@@ -90,10 +90,6 @@
 
 			widget.setMessage(properties.message);
 
-			if (properties.linkedElement) {
-				widget.linkElement(properties.linkedElement, widget);
-			}
-
 			return widget;
 		};
 
@@ -126,9 +122,7 @@
 		var self = this,
 			settings = {},
 			events = {},
-			elements = {
-				$element: 0
-			};
+			elements = {};
 
 		var callEffect = function (intent) {
 
@@ -176,8 +170,7 @@
 			settings.classes = {
 				globalPrefix: parentSettings.classPrefix,
 				prefix: prefix,
-				widget: 'dialog-widget',
-				linkedActive: prefix + '-linked-active'
+				widget: 'dialog-widget'
 			};
 
 			$.extend(true, settings, userSettings);
@@ -273,18 +266,7 @@
 
 			callEffect('hide');
 
-			if (elements.$element.length) {
-				elements.$element.removeClass(settings.classes.linkedActive);
-			}
-
 			self.trigger('hide');
-
-			return self;
-		};
-
-		this.linkElement = function (element) {
-
-			this.addElement('element', element);
 
 			return self;
 		};
@@ -315,10 +297,6 @@
 			elements.$widget.appendTo('body');
 
 			callEffect('show');
-
-			if (elements.$element.length) {
-				elements.$element.addClass(settings.classes.linkedActive);
-			}
 
 			self.trigger('show', userSettings);
 
