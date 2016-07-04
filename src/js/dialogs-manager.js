@@ -427,21 +427,10 @@
 			return self;
 		},
 		bindHotKeys: function () {
-			var self = this;
 
-			self.bindKeyUpEvents = function (event) {
-
-				self.activeKeyUp(event);
-			};
-
-			self.bindKeyDownEvents = function (event) {
-
-				self.activeKeyDown(event);
-			};
-
-			self.getElements( 'window' ).on({
-				keyup: self.bindKeyUpEvents,
-				keydown: self.bindKeyDownEvents
+			this.getElements('window').on({
+				keyup: this.activeKeyUp,
+				keydown: this.activeKeyDown
 			});
 		},
 		buildWidget: function () {
@@ -456,6 +445,25 @@
 			$widgetContent.append($widgetHeader, elements.message, $buttonsWrapper);
 
 			elements.widget.html($widgetContent);
+		},
+		ensureClosureMethods: function () {
+
+			var self = this,
+				closureMethodsNames = [
+					'placeWidget',
+					'activeKeyUp',
+					'activeKeyDown'
+				];
+
+			$.each(closureMethodsNames, function () {
+
+				var methodName = this,
+					oldMethod = self[methodName];
+
+				self[methodName] = function () {
+					oldMethod.apply(self, arguments);
+				};
+			});
 		},
 		getDefaultSettings: function () {
 
@@ -477,6 +485,8 @@
 		},
 		onInit: function () {
 
+			this.ensureClosureMethods();
+
 			this.buttons = [];
 
 			this.hotKeys = {};
@@ -495,10 +505,7 @@
 
 			if (self.getSettings('refreshPosition')) {
 
-				self.getElements( 'window' ).on( 'resize', function () {
-
-					self.placeWidget();
-				} );
+				self.getElements('window').on('resize',  self.placeWidget);
 			}
 
 			self.bindHotKeys();
@@ -532,9 +539,9 @@
 		},
 		unbindHotKeys: function () {
 
-			this.getElements( 'window' ).off({
-				keyup: this.bindKeyUpEvents,
-				keydown: this.bindKeyDownEvents
+			this.getElements('window').off({
+				keyup: this.activeKeyUp,
+				keydown: this.activeKeyDown
 			});
 		}
 	});
