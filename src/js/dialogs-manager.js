@@ -76,7 +76,7 @@
 				}
 			};
 
-			settings = $.extend(defaultSettings, options);
+			$.extend(settings, defaultSettings, options);
 		};
 
 		this.createWidget = function (widgetType, properties) {
