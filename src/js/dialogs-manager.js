@@ -124,18 +124,19 @@
 			events = {},
 			elements = {};
 
-		var callEffect = function (intent) {
+		var callEffect = function () {
+			var intent = Array.prototype.splice.call( arguments, 0, 1 );
 
 			var effect = settings.effects[intent],
 				$widget = elements.widget;
 
 			if ($.isFunction(effect)) {
-				effect.call($widget);
+				effect.apply($widget, arguments);
 			}
 			else {
 
 				if ($widget[effect]) {
-					$widget[effect]();
+					$widget[effect].apply($widget, arguments);
 				}
 				else {
 					throw 'Reference Error: The effect ' + effect + ' not found';
