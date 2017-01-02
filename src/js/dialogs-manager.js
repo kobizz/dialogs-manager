@@ -124,7 +124,13 @@
 			events = {},
 			elements = {};
 
+		var bindEvents = function () {
+
+			self.getElements('window').on('keyup', onWindowKeyUp);
+		};
+
 		var callEffect = function () {
+
 			var intent = Array.prototype.splice.call( arguments, 0, 1 );
 
 			var effect = settings.effects[intent],
@@ -149,6 +155,8 @@
 			self.addElement('widget');
 
 			self.addElement('message');
+
+			self.addElement('window', window);
 
 			var id = self.getSettings('id');
 
@@ -204,6 +212,20 @@
 			});
 		};
 
+		var onWindowKeyUp = function(event) {
+			var ESC_KEY = 27,
+				keyCode = event.which;
+
+			if ( ESC_KEY === keyCode ) {
+				self.hide();
+			}
+		};
+
+		var unbindEvents = function() {
+
+			self.getElements('window').off('keyup', onWindowKeyUp);
+		};
+
 		this.addElement = function (name, element, type) {
 
 			var $newElement = elements[name] = $(element || '<div>'),
@@ -252,6 +274,10 @@
 			if (self.attachEvents) {
 				self.attachEvents();
 			}
+
+			self.on('show', bindEvents);
+
+			self.on('hide', unbindEvents);
 
 			self.trigger('ready');
 
@@ -435,7 +461,6 @@
 			});
 		},
 		buildWidget: function () {
-			this.addElement('window', window);
 
 			var $widgetHeader = this.addElement('widgetHeader'),
 				$widgetContent = this.addElement('widgetContent'),
@@ -553,7 +578,6 @@
 			DialogsManager.getWidgetType('options').prototype.onReady.apply(this, arguments);
 
 			var strings = this.getSettings('strings'),
-				ESC_KEY = 27,
 				isDefaultCancel = this.getSettings('defaultOption') === 'cancel';
 
 			this.addButton({
@@ -563,7 +587,6 @@
 
 					widget.trigger('cancel');
 				},
-				hotKey: ESC_KEY,
 				focus: isDefaultCancel
 			});
 
