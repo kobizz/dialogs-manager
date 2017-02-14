@@ -168,21 +168,17 @@
 
 		var initSettings = function (parent, userSettings) {
 
-			var parentSettings = parent.getSettings();
+			var parentSettings = parent.getSettings(),
+				settings = {
+					effects: parentSettings.effects,
+					classes: {
+						globalPrefix: parentSettings.classPrefix,
+						prefix: parentSettings.classPrefix + '-' + widgetName,
+						widget: 'dialog-widget'
+					}
+				};
 
-			settings = self.getDefaultSettings();
-
-			settings.effects = parentSettings.effects;
-
-			var prefix = parentSettings.classPrefix + '-' + widgetName;
-
-			settings.classes = {
-				globalPrefix: parentSettings.classPrefix,
-				prefix: prefix,
-				widget: 'dialog-widget'
-			};
-
-			$.extend(true, settings, userSettings);
+			$.extend(true, settings, self.getDefaultSettings(), userSettings);
 
 			initSettingsEvents();
 		};
