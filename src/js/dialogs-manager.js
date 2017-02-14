@@ -127,11 +127,21 @@
 		var bindEvents = function () {
 
 			self.getElements('window').on('keyup', onWindowKeyUp);
+
+			if ( settings.hideOnBackgroundClick ) {
+				self.getElements( 'widget' ).on( 'click', function (event) {
+					if ( event.target !== this ) {
+						return;
+					}
+
+					self.hide();
+				} );
+			}
 		};
 
 		var callEffect = function () {
 
-			var intent = Array.prototype.splice.call( arguments, 0, 1 );
+			var intent = Array.prototype.splice.call(arguments, 0, 1);
 
 			var effect = settings.effects[intent],
 				$widget = elements.widget;
@@ -168,15 +178,17 @@
 
 		var initSettings = function (parent, userSettings) {
 
-			var parentSettings = parent.getSettings(),
-				settings = {
-					effects: parentSettings.effects,
-					classes: {
-						globalPrefix: parentSettings.classPrefix,
-						prefix: parentSettings.classPrefix + '-' + widgetName,
-						widget: 'dialog-widget'
-					}
-				};
+			var parentSettings = parent.getSettings();
+
+			settings = {
+				effects: parentSettings.effects,
+				classes: {
+					globalPrefix: parentSettings.classPrefix,
+					prefix: parentSettings.classPrefix + '-' + widgetName,
+					widget: 'dialog-widget'
+				},
+				hideOnBackgroundClick: true
+			};
 
 			$.extend(true, settings, self.getDefaultSettings(), userSettings);
 
