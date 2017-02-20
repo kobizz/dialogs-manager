@@ -403,10 +403,6 @@
 	DialogsManager.Widget.prototype.onReady = function () {
 	};
 
-	/*
-	 * Default basic widget types
-	 */
-	DialogsManager.addWidgetType('options', {
 	DialogsManager.addWidgetType( 'light-box', {
 		getDefaultSettings: function () {
 
@@ -499,6 +495,8 @@
 			return this;
 		}
 	} );
+
+	DialogsManager.addWidgetType('options', DialogsManager.getWidgetType('light-box').extend('options', {
 		activeKeyUp: function (event) {
 
 			var TAB_KEY = 9;
@@ -581,16 +579,11 @@
 			});
 		},
 		buildWidget: function () {
+			DialogsManager.getWidgetType('light-box').prototype.buildWidget.apply(this, arguments);
 
-			var $widgetHeader = this.addElement('widgetHeader'),
-				$widgetContent = this.addElement('widgetContent'),
-				$buttonsWrapper = this.addElement('buttonsWrapper');
+			var $buttonsWrapper = this.addElement('buttonsWrapper');
 
-			var elements = this.getElements();
-
-			$widgetContent.append($widgetHeader, elements.message, $buttonsWrapper);
-
-			elements.widget.html($widgetContent);
+			this.getElements('widgetContent').append($buttonsWrapper);
 		},
 		getClosureMethods: function () {
 
@@ -603,21 +596,22 @@
 		},
 		getDefaultSettings: function () {
 
-			return {
+			var settings = DialogsManager.getWidgetType('light-box').prototype.getDefaultSettings.apply(this, arguments);
+
+			$.extend(true, settings,  {
 				position: {
-					my: 'center',
 					at: 'center center-100'
 				},
-				headerMessage: '',
-				hideOnButtonClick: true,
-				refreshPosition: true
-			};
+				hideOnButtonClick: true
+			});
+
+			return settings;
 		},
 		onHide: function () {
 
-			this.unbindHotKeys();
+			DialogsManager.getWidgetType('light-box').prototype.onHide.apply(this, arguments);
 
-			this.getElements('window').off('resize', this.placeWidget);
+			this.unbindHotKeys();
 		},
 		onInit: function () {
 			this.buttons = [];
@@ -626,49 +620,19 @@
 
 			this.focusedButton = null;
 		},
-		onReady: function(){
+		onShow: function () {
 
-			this.setHeaderMessage(this.getSettings('headerMessage'));
-		},
-		onShow: function (userSettings) {
+			DialogsManager.getWidgetType('light-box').prototype.onShow.apply(this, arguments);
 
-			var self = this;
+			this.bindHotKeys();
 
-			self.placeWidget(userSettings);
-
-			if (self.getSettings('refreshPosition')) {
-
-				self.getElements('window').on('resize',  self.placeWidget);
+			if (!this.focusedButton) {
+				this.focusedButton = this.buttons[0];
 			}
 
-			self.bindHotKeys();
-
-			if (!self.focusedButton) {
-				self.focusedButton = self.buttons[0];
+			if (this.focusedButton) {
+				this.focusedButton.focus();
 			}
-
-			if (self.focusedButton) {
-				self.focusedButton.focus();
-			}
-		},
-		placeWidget: function (userSettings) {
-
-			var elements = this.getElements(),
-				position = this.getSettings('position');
-
-			position.of = elements.widget;
-
-			if (userSettings) {
-				$.extend(position, userSettings);
-			}
-
-			elements.widgetContent.position(position);
-		},
-		setHeaderMessage: function (message) {
-
-			this.getElements('widgetHeader').html(message);
-
-			return this;
 		},
 		unbindHotKeys: function () {
 
@@ -677,7 +641,7 @@
 				keydown: this.activeKeyDown
 			});
 		}
-	});
+	}));
 
 	DialogsManager.addWidgetType('confirm', DialogsManager.getWidgetType('options').extend('confirm', {
 		onReady: function () {
