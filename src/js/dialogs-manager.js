@@ -408,7 +408,7 @@
 	DialogsManager.Widget.prototype.onReady = function () {
 	};
 
-	DialogsManager.addWidgetType( 'light-box', {
+	DialogsManager.addWidgetType( 'lightbox', {
 		getDefaultSettings: function () {
 
 			return {
@@ -501,7 +501,7 @@
 		}
 	} );
 
-	DialogsManager.addWidgetType('options', DialogsManager.getWidgetType('light-box').extend('options', {
+	DialogsManager.addWidgetType('options', DialogsManager.getWidgetType('lightbox').extend('options', {
 		activeKeyUp: function (event) {
 
 			var TAB_KEY = 9;
@@ -584,7 +584,7 @@
 			});
 		},
 		buildWidget: function () {
-			DialogsManager.getWidgetType('light-box').prototype.buildWidget.apply(this, arguments);
+			DialogsManager.getWidgetType('lightbox').prototype.buildWidget.apply(this, arguments);
 
 			var $buttonsWrapper = this.addElement('buttonsWrapper');
 
@@ -592,7 +592,7 @@
 		},
 		getClosureMethods: function () {
 
-			var closureMethods = DialogsManager.getWidgetType('light-box').prototype.getClosureMethods.apply(this, arguments);
+			var closureMethods = DialogsManager.getWidgetType('lightbox').prototype.getClosureMethods.apply(this, arguments);
 
 			return closureMethods.concat( [
 				'activeKeyUp',
@@ -601,7 +601,7 @@
 		},
 		getDefaultSettings: function () {
 
-			var settings = DialogsManager.getWidgetType('light-box').prototype.getDefaultSettings.apply(this, arguments);
+			var settings = DialogsManager.getWidgetType('lightbox').prototype.getDefaultSettings.apply(this, arguments);
 
 			$.extend(true, settings,  {
 				position: {
@@ -614,7 +614,7 @@
 		},
 		onHide: function () {
 
-			DialogsManager.getWidgetType('light-box').prototype.onHide.apply(this, arguments);
+			DialogsManager.getWidgetType('lightbox').prototype.onHide.apply(this, arguments);
 
 			this.unbindHotKeys();
 		},
@@ -627,7 +627,7 @@
 		},
 		onShow: function () {
 
-			DialogsManager.getWidgetType('light-box').prototype.onShow.apply(this, arguments);
+			DialogsManager.getWidgetType('lightbox').prototype.onShow.apply(this, arguments);
 
 			this.bindHotKeys();
 
