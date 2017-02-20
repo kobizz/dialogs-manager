@@ -340,11 +340,9 @@
 			return self;
 		};
 
-		this.show = function (e, userSettings) {
 
-			if (e) {
-				e.stopPropagation();
 			}
+		this.show = function () {
 
 			elements.widget.appendTo(elements.container);
 
