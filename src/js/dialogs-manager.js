@@ -180,6 +180,8 @@
 
 			self.addElement('window', window);
 
+			self.addElement('container', settings.container);
+
 			var id = self.getSettings('id');
 
 			if (id) {
@@ -199,6 +201,7 @@
 					prefix: parentSettings.classPrefix + '-' + widgetName,
 					widget: 'dialog-widget'
 				},
+				container: 'body',
 				hideOnBackgroundClick: true
 			};
 
@@ -343,7 +346,7 @@
 				e.stopPropagation();
 			}
 
-			elements.widget.appendTo('body');
+			elements.widget.appendTo(elements.container);
 
 			callEffect('show', arguments);
 
