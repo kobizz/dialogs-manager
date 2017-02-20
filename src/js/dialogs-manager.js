@@ -139,20 +139,18 @@
 			}
 		};
 
-		var callEffect = function () {
-
-			var intent = Array.prototype.splice.call(arguments, 0, 1);
+		var callEffect = function (intent, params) {
 
 			var effect = settings.effects[intent],
 				$widget = elements.widget;
 
 			if ($.isFunction(effect)) {
-				effect.apply($widget, arguments);
+				effect.apply($widget, params);
 			}
 			else {
 
 				if ($widget[effect]) {
-					$widget[effect].apply($widget, arguments);
+					$widget[effect].apply($widget, params);
 				}
 				else {
 					throw 'Reference Error: The effect ' + effect + ' not found';
@@ -315,7 +313,7 @@
 
 		this.hide = function () {
 
-			callEffect('hide');
+			callEffect('hide', arguments);
 
 			self.trigger('hide');
 
@@ -347,9 +345,9 @@
 
 			elements.widget.appendTo('body');
 
-			callEffect('show');
+			callEffect('show', arguments);
 
-			self.trigger('show', userSettings);
+			self.trigger('show');
 
 			return self;
 		};
