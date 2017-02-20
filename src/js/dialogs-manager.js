@@ -160,6 +160,20 @@
 			}
 		};
 
+		var ensureClosureMethods = function() {
+			var closureMethodsNames = self.getClosureMethods();
+
+			$.each(closureMethodsNames, function () {
+
+				var methodName = this,
+					oldMethod = self[methodName];
+
+				self[methodName] = function () {
+					oldMethod.apply(self, arguments);
+				};
+			});
+		};
+
 		var initElements = function () {
 
 			self.addElement('widget');
@@ -271,6 +285,8 @@
 				throw 'The ' + self.widgetName + ' must to be initialized from an instance of DialogsManager.Instance';
 			}
 
+			ensureClosureMethods();
+
 			self.trigger('init', properties);
 
 			initSettings(parent, properties);
@@ -369,6 +385,9 @@
 	DialogsManager.Widget.prototype.getDefaultSettings = function () {
 
 		return {};
+	};
+
+	DialogsManager.Widget.prototype.getClosureMethods = function() {
 	};
 
 	DialogsManager.Widget.prototype.onHide = function () {
@@ -480,24 +499,14 @@
 
 			elements.widget.html($widgetContent);
 		},
-		ensureClosureMethods: function () {
+		getClosureMethods: function () {
 
-			var self = this,
-				closureMethodsNames = [
-					'placeWidget',
-					'activeKeyUp',
-					'activeKeyDown'
-				];
+			var closureMethods = DialogsManager.getWidgetType('light-box').prototype.getClosureMethods.apply(this, arguments);
 
-			$.each(closureMethodsNames, function () {
-
-				var methodName = this,
-					oldMethod = self[methodName];
-
-				self[methodName] = function () {
-					oldMethod.apply(self, arguments);
-				};
-			});
+			return closureMethods.concat( [
+				'activeKeyUp',
+				'activeKeyDown'
+			] );
 		},
 		getDefaultSettings: function () {
 
@@ -518,9 +527,6 @@
 			this.getElements('window').off('resize', this.placeWidget);
 		},
 		onInit: function () {
-
-			this.ensureClosureMethods();
-
 			this.buttons = [];
 
 			this.hotKeys = {};
