@@ -406,6 +406,98 @@
 	 * Default basic widget types
 	 */
 	DialogsManager.addWidgetType('options', {
+	DialogsManager.addWidgetType( 'light-box', {
+		getDefaultSettings: function () {
+
+			return {
+				position: {
+					my: 'center',
+					at: 'center'
+				},
+				headerMessage: '',
+				contentWidth: 'auto',
+				contentHeight: 'auto',
+				closeButton: false,
+				refreshPosition: true
+			};
+		},
+		getClosureMethods: function() {
+			return [
+				'refreshPosition'
+			];
+		},
+		buildWidget: function () {
+
+			var $widgetHeader = this.addElement('widgetHeader'),
+				$widgetContent = this.addElement('widgetContent');
+
+			var elements = this.getElements();
+
+			$widgetContent.append($widgetHeader, elements.message );
+
+			elements.widget.html($widgetContent);
+
+			if ( ! this.getSettings( 'closeButton' ) ) {
+				return;
+			}
+
+			var $closeButton = this.addElement( 'closeButton', '<div><i class="fa fa-times"></i></div>' );
+
+			$widgetContent.prepend( $closeButton );
+		},
+		refreshPosition: function () {
+
+			var elements = this.getElements(),
+				position = this.getSettings('position');
+
+			if ( ! position ) {
+				return;
+			}
+
+			position.of = elements.widget;
+
+			elements.widgetContent.position(position);
+		},
+		attachEvents: function() {
+			if ( this.getSettings( 'closeButton' ) ) {
+				this.getElements( 'closeButton' ).on( 'click', this.hide );
+			}
+		},
+		onHide: function () {
+
+			this.getElements('window').off('resize', this.refreshPosition);
+		},
+		onReady: function(){
+
+			var elements = this.getElements(),
+				settings = this.getSettings();
+
+			if ( 'auto' !== settings.contentWidth ) {
+				elements.message.width( settings.contentWidth );
+			}
+
+			if ( 'auto' !== settings.contentHeight ) {
+				elements.message.height( settings.contentHeight );
+			}
+
+			this.setHeaderMessage(settings.headerMessage);
+		},
+		onShow: function () {
+
+			this.refreshPosition();
+
+			if (this.getSettings('refreshPosition')) {
+
+				this.getElements('window').on('resize',  this.refreshPosition);
+			}
+		},
+		setHeaderMessage: function (message) {
+
+			this.getElements('widgetHeader').html(message);
+
+			return this;
+		}
+	} );
 		activeKeyUp: function (event) {
 
 			var TAB_KEY = 9;
