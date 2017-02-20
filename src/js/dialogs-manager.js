@@ -340,8 +340,15 @@
 			return self;
 		};
 
+		this.setSettings = function(key, value) {
 
+			if ('object' === typeof value) {
+				$.extend(true, settings[key], value);
+			} else {
+				settings[key] = value;
 			}
+		};
+
 		this.show = function () {
 
 			elements.widget.appendTo(elements.container);
