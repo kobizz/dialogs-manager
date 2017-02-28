@@ -188,6 +188,13 @@
 
 				self.setID(id);
 			}
+
+			var className = self.getSettings('className');
+
+			if (className) {
+
+				self.getElements('widget').addClass(className);
+			}
 		};
 
 		var initSettings = function (parent, userSettings) {
