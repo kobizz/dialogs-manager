@@ -186,7 +186,7 @@
 
 			if (id) {
 
-				self.getElements('widget').attr('id', id);
+				self.setID(id);
 			}
 		};
 
@@ -338,6 +338,10 @@
 			elements.message.html(message);
 
 			return self;
+		};
+
+		this.setID = function (id) {
+			self.getElements('widget').attr('id', id);
 		};
 
 		this.setSettings = function(key, value) {
