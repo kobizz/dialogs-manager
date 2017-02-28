@@ -348,7 +348,10 @@
 		};
 
 		this.setID = function (id) {
+
 			self.getElements('widget').attr('id', id);
+
+			return self;
 		};
 
 		this.setSettings = function(key, value) {
