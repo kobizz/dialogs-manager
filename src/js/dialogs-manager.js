@@ -361,6 +361,8 @@
 			} else {
 				settings[key] = value;
 			}
+
+			return self;
 		};
 
 		this.show = function () {
@@ -391,6 +393,8 @@
 			$.each(callbacks, function (index, callback) {
 				callback.call(self, params);
 			});
+
+			return self;
 		};
 	};
 
