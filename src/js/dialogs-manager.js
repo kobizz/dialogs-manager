@@ -1,10 +1,10 @@
 /*!
  * Dialogs Manager v3.1.1
- * https://github.com/cobicarmel/dialogs-manager/
+ * https://github.com/kobizz/dialogs-manager
  *
  * Copyright Kobi Zaltzberg
  * Released under the MIT license
- * https://github.com/cobicarmel/dialogs-manager/blob/master/LICENSE.txt
+ * https://github.com/kobizz/dialogs-manager/blob/master/LICENSE.txt
  */
 
 (function ($, global) {
