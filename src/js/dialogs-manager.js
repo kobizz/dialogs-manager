@@ -123,21 +123,19 @@
 		var self = this,
 			settings = {},
 			events = {},
-			elements = {};
+			elements = {},
+			baseClosureMethods = [ 'refreshPosition' ];
 
 		var bindEvents = function () {
 
-			self.getElements('window').on('keyup', onWindowKeyUp);
+			elements.window.on('keyup', onWindowKeyUp);
 
-			if ( settings.hideOnBackgroundClick ) {
-				self.getElements( 'widget' ).on( 'click', function (event) {
+			if (settings.hide.onBackgroundClick) {
+				elements.widget.on('click', hideOnBackgroundClick);
+			}
 
-					if ( event.target !== this ) {
-						return;
-					}
-
-					self.hide();
-				} );
+			if (settings.position.autoRefresh) {
+				elements.window.on('resize', self.refreshPosition);
 			}
 		};
 
@@ -162,7 +160,7 @@
 
 		var ensureClosureMethods = function() {
 
-			var closureMethodsNames = self.getClosureMethods();
+			var closureMethodsNames = baseClosureMethods.concat(self.getClosureMethods());
 
 			$.each(closureMethodsNames, function () {
 
@@ -207,11 +205,21 @@
 				effects: parentSettings.effects,
 				classes: {
 					globalPrefix: parentSettings.classPrefix,
-					prefix: parentSettings.classPrefix + '-' + widgetName,
-					widget: 'dialog-widget'
+					prefix: parentSettings.classPrefix + '-' + widgetName
 				},
 				container: 'body',
-				hideOnBackgroundClick: true
+				position: {
+					element: 'widget',
+					my: 'center',
+					at: 'center',
+					of: 'container',
+					autoRefresh: false
+				},
+				hide: {
+					auto: false,
+					autoDelay: 5000,
+					onBackgroundClick: true
+				}
 			};
 
 			$.extend(true, settings, self.getDefaultSettings(), userSettings);
@@ -245,8 +253,15 @@
 			});
 		};
 
-		var onWindowKeyUp = function(event) {
+		var hideOnBackgroundClick = function(event) {
+			if (event.target !== this) {
+				return;
+			}
 
+			self.hide();
+		};
+
+		var onWindowKeyUp = function(event) {
 			var ESC_KEY = 27,
 				keyCode = event.which;
 
@@ -257,7 +272,15 @@
 
 		var unbindEvents = function() {
 
-			self.getElements('window').off('keyup', onWindowKeyUp);
+			elements.window.off('keyup', onWindowKeyUp);
+
+			if (settings.hide.onBackgroundClick) {
+				elements.widget.off('click', hideOnBackgroundClick);
+			}
+
+			if (settings.position.autoRefresh) {
+				elements.window.off('resize', self.refreshPosition);
+			}
 		};
 
 		this.addElement = function (name, element, type) {
@@ -376,9 +399,27 @@
 
 			callEffect('show', arguments);
 
+			self.refreshPosition();
+
+			if (settings.hide.auto) {
+				setTimeout(self.hide, settings.hide.autoDelay);
+			}
+
 			self.trigger('show');
 
 			return self;
+		};
+
+		this.refreshPosition = function () {
+
+			var position = settings.position;
+
+			elements[position.element].position({
+				my: position.my,
+				at: position.at,
+				of: elements[position.of] || position.of,
+				within: position.within
+			});
 		};
 
 		this.trigger = function (eventName, params) {
@@ -432,26 +473,21 @@
 	DialogsManager.Widget.prototype.onReady = function () {
 	};
 
-	DialogsManager.addWidgetType( 'lightbox', {
+
+	DialogsManager.addWidgetType('lightbox', {
 		getDefaultSettings: function () {
 
 			return {
-				position: {
-					my: 'center',
-					at: 'center'
-				},
 				headerMessage: '',
 				contentWidth: 'auto',
 				contentHeight: 'auto',
 				closeButton: false,
-				refreshPosition: true
+				position: {
+					element: 'widgetContent',
+					of: 'widget',
+					autoRefresh: true
+				}
 			};
-		},
-		getClosureMethods: function() {
-
-			return [
-				'refreshPosition'
-			];
 		},
 		buildWidget: function () {
 
@@ -470,29 +506,12 @@
 
 			var $closeButton = this.addElement('closeButton', '<div><i class="fa fa-times"></i></div>');
 
-			$widgetContent.prepend( $closeButton );
-		},
-		refreshPosition: function () {
-
-			var elements = this.getElements(),
-				position = this.getSettings('position');
-
-			if ( ! position ) {
-				return;
-			}
-
-			position.of = elements.widget;
-
-			elements.widgetContent.position(position);
+			$widgetContent.prepend($closeButton);
 		},
 		attachEvents: function() {
 			if (this.getSettings('closeButton')) {
 				this.getElements('closeButton').on('click', this.hide);
 			}
-		},
-		onHide: function () {
-
-			this.getElements('window').off('resize', this.refreshPosition);
 		},
 		onReady: function(){
 
@@ -508,15 +527,6 @@
 			}
 
 			this.setHeaderMessage(settings.headerMessage);
-		},
-		onShow: function () {
-
-			this.refreshPosition();
-
-			if (this.getSettings('refreshPosition')) {
-
-				this.getElements('window').on('resize',  this.refreshPosition);
-			}
 		},
 		setHeaderMessage: function (message) {
 
@@ -639,8 +649,6 @@
 		},
 		onHide: function () {
 
-			DialogsManager.getWidgetType('lightbox').prototype.onHide.apply(this, arguments);
-
 			this.unbindHotKeys();
 		},
 		onInit: function () {
@@ -652,8 +660,6 @@
 			this.focusedButton = null;
 		},
 		onShow: function () {
-
-			DialogsManager.getWidgetType('lightbox').prototype.onShow.apply(this, arguments);
 
 			this.bindHotKeys();
 
