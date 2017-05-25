@@ -749,28 +749,6 @@
 		}
 	}));
 
-	DialogsManager.addWidgetType('popup', {
-		getDefaultSettings: function () {
-
-			return {
-				position: {
-					my: 'center',
-					at: 'center',
-					of: window
-				},
-				hide: {
-					delay: 5000
-				}
-			};
-		},
-		onShow: function () {
-
-			this.getElements('message').position(this.getSettings('position'));
-
-			setTimeout(this.hide, this.getSettings('hide').delay);
-		}
-	});
-
 	// Exporting the DialogsManager variable to global
 	global.DialogsManager = DialogsManager;
 })(typeof require === 'function' ? require('jquery') : jQuery, typeof module !== 'undefined' ? module.exports : window);
