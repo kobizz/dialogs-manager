@@ -459,6 +459,8 @@
 	};
 
 	DialogsManager.Widget.prototype.getClosureMethods = function() {
+
+		return [];
 	};
 
 	DialogsManager.Widget.prototype.onHide = function () {
