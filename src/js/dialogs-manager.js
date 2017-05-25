@@ -229,8 +229,6 @@
 
 		var initSettingsEvents = function () {
 
-			var settings = self.getSettings();
-
 			$.each(settings, function (settingKey) {
 
 				var eventName = settingKey.match(/^on([A-Z].*)/);
