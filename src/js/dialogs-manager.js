@@ -332,10 +332,6 @@
 				self.attachEvents();
 			}
 
-			self.on('show', bindEvents);
-
-			self.on('hide', unbindEvents);
-
 			self.trigger('ready');
 
 			return self;
@@ -349,6 +345,8 @@
 		this.hide = function () {
 
 			callEffect('hide', arguments);
+
+			unbindEvents();
 
 			self.trigger('hide');
 
@@ -402,6 +400,8 @@
 			if (settings.hide.auto) {
 				setTimeout(self.hide, settings.hide.autoDelay);
 			}
+
+			bindEvents();
 
 			self.trigger('show');
 
