@@ -189,14 +189,12 @@
 			var id = self.getSettings('id');
 
 			if (id) {
-
 				self.setID(id);
 			}
 
 			var className = self.getSettings('className');
 
 			if (className) {
-
 				self.getElements('widget').addClass(className);
 			}
 		};
@@ -252,7 +250,7 @@
 			var ESC_KEY = 27,
 				keyCode = event.which;
 
-			if ( ESC_KEY === keyCode ) {
+			if (ESC_KEY === keyCode) {
 				self.hide();
 			}
 		};
@@ -462,15 +460,15 @@
 
 			var elements = this.getElements();
 
-			$widgetContent.append($widgetHeader, elements.message );
+			$widgetContent.append($widgetHeader, elements.message);
 
 			elements.widget.html($widgetContent);
 
-			if ( ! this.getSettings( 'closeButton' ) ) {
+			if (! this.getSettings('closeButton')) {
 				return;
 			}
 
-			var $closeButton = this.addElement( 'closeButton', '<div><i class="fa fa-times"></i></div>' );
+			var $closeButton = this.addElement('closeButton', '<div><i class="fa fa-times"></i></div>');
 
 			$widgetContent.prepend( $closeButton );
 		},
@@ -488,9 +486,8 @@
 			elements.widgetContent.position(position);
 		},
 		attachEvents: function() {
-
-			if ( this.getSettings( 'closeButton' ) ) {
-				this.getElements( 'closeButton' ).on( 'click', this.hide );
+			if (this.getSettings('closeButton')) {
+				this.getElements('closeButton').on('click', this.hide);
 			}
 		},
 		onHide: function () {
@@ -502,12 +499,12 @@
 			var elements = this.getElements(),
 				settings = this.getSettings();
 
-			if ( 'auto' !== settings.contentWidth ) {
-				elements.message.width( settings.contentWidth );
+			if ('auto' !== settings.contentWidth) {
+				elements.message.width(settings.contentWidth);
 			}
 
-			if ( 'auto' !== settings.contentHeight ) {
-				elements.message.height( settings.contentHeight );
+			if ('auto' !== settings.contentHeight) {
+				elements.message.height(settings.contentHeight);
 			}
 
 			this.setHeaderMessage(settings.headerMessage);
@@ -527,7 +524,7 @@
 
 			return this;
 		}
-	} );
+	});
 
 	DialogsManager.addWidgetType('options', DialogsManager.getWidgetType('lightbox').extend('options', {
 		activeKeyUp: function (event) {
@@ -535,7 +532,6 @@
 			var TAB_KEY = 9;
 
 			if (event.which === TAB_KEY) {
-
 				event.preventDefault();
 			}
 
@@ -623,10 +619,10 @@
 
 			var closureMethods = DialogsManager.getWidgetType('lightbox').prototype.getClosureMethods.apply(this, arguments);
 
-			return closureMethods.concat( [
+			return closureMethods.concat([
 				'activeKeyUp',
 				'activeKeyDown'
-			] );
+			]);
 		},
 		getDefaultSettings: function () {
 
