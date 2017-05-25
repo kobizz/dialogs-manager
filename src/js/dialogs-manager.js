@@ -473,6 +473,7 @@
 	DialogsManager.Widget.prototype.onReady = function () {
 	};
 
+	DialogsManager.widgetsTypes['simple'] = DialogsManager.Widget;
 
 	DialogsManager.addWidgetType('lightbox', {
 		getDefaultSettings: function () {
