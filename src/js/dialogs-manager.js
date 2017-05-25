@@ -284,14 +284,17 @@
 		this.addElement = function (name, element, type) {
 
 			var $newElement = elements[name] = $(element || '<div>'),
-				className = settings.classes.prefix + '-';
+				normalizedName = normalizeClassName(name),
+				className;
 
-			name = normalizeClassName(name);
-
-			className += name;
+			if (settings.classes[name]) {
+				className = settings.classes[name];
+			} else {
+				className = settings.classes.prefix + '-' + normalizedName;
+			}
 
 			if (!type) {
-				type = name;
+				type = normalizedName;
 			}
 
 			className += ' ' + settings.classes.globalPrefix + '-' + type;
