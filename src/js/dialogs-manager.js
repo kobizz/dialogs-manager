@@ -413,14 +413,13 @@
 
 		this.refreshPosition = function () {
 
-			var position = settings.position;
+			var position = $.extend({}, settings.position);
 
-			elements[position.element].position({
-				my: position.my,
-				at: position.at,
-				of: elements[position.of] || position.of,
-				within: position.within
-			});
+			if ( elements[position.of] ) {
+				position.of = elements[position.of];
+			}
+
+			elements[position.element].position(position);
 		};
 
 		this.trigger = function (eventName, params) {
