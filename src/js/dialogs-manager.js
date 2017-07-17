@@ -420,7 +420,7 @@
 
 			var position = $.extend({}, settings.position);
 
-			if ( elements[position.of] ) {
+			if (elements[position.of]) {
 				position.of = elements[position.of];
 			}
 
