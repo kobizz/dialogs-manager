@@ -213,6 +213,7 @@
 					my: 'center',
 					at: 'center',
 					of: 'container',
+					enable: true,
 					autoRefresh: false
 				},
 				hide: {
@@ -412,6 +413,10 @@
 		};
 
 		this.refreshPosition = function () {
+
+			if (! settings.position.enable) {
+				return;
+			}
 
 			var position = $.extend({}, settings.position);
 
