@@ -493,6 +493,17 @@
 
 			return self;
 		};
+
+        this.destroy = function() {
+
+            unbindEvents();
+
+            elements.widget.remove();
+
+            self.trigger('destroy');
+
+            return self;
+        };
 	};
 
     DialogsManager.Widget.prototype.types = [];
