@@ -130,6 +130,10 @@
 
 			elements.window.on('keyup', onWindowKeyUp);
 
+            if (settings.hide.onOutsideClick) {
+                elements.window[0].addEventListener('click', hideOnOutsideClick, true);
+            }
+
 			if (settings.hide.onClick || settings.hide.onBackgroundClick) {
 				elements.widget.on('click', hideOnClick);
 			}
@@ -223,6 +227,7 @@
 					auto: false,
 					autoDelay: 5000,
 					onClick: false,
+                    onOutsideClick: true,
 					onBackgroundClick: true
 				}
 			};
@@ -270,6 +275,14 @@
 			self.hide();
 		};
 
+        var hideOnOutsideClick = function(event) {
+            if ($(event.target).closest(elements.widget).length) {
+                return;
+            }
+
+            self.hide();
+        };
+
 		var onWindowKeyUp = function(event) {
 			var ESC_KEY = 27,
 				keyCode = event.which;
@@ -282,6 +295,10 @@
 		var unbindEvents = function() {
 
 			elements.window.off('keyup', onWindowKeyUp);
+
+            if (settings.hide.onOutsideClick) {
+                elements.window[0].removeEventListener('click', hideOnOutsideClick, true);
+            }
 
 			if (settings.hide.onClick || settings.hide.onBackgroundClick) {
 				elements.widget.off('click', hideOnClick);
