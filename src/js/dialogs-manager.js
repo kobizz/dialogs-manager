@@ -28,6 +28,8 @@
 
 			var prototype = WidgetType.prototype = new Parent(typeName);
 
+            prototype.types = prototype.types.concat( [typeName] );
+
 			$.extend(prototype, properties);
 
 			prototype.constructor = WidgetType;
@@ -194,11 +196,15 @@
 				self.setID(id);
 			}
 
-			var className = self.getSettings('className');
+            var classes = [];
 
-			if (className) {
-				self.getElements('widget').addClass(className);
-			}
+            $.each(self.types, function() {
+                classes.push( settings.classes.globalPrefix + '-type-' + this );
+            });
+
+            classes.push( self.getSettings('className') );
+
+            self.getElements('widget').addClass(classes.join(' '));
 		};
 
 		var initSettings = function (parent, userSettings) {
@@ -476,6 +482,8 @@
 			return self;
 		};
 	};
+
+    DialogsManager.Widget.prototype.types = [];
 
 	// Inheritable widget methods
 	DialogsManager.Widget.prototype.buildWidget = function () {
