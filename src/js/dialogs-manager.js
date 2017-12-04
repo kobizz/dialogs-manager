@@ -392,11 +392,23 @@
 
 		this.on = function (eventName, callback) {
 
-			if (!events[eventName]) {
-				events[eventName] = [];
+            if ('object' === typeof eventName) {
+                $.each(eventName, function(singleEventName) {
+                    self.on(singleEventName, this);
+                } );
+
+                return self;
+            }
+
+            var eventNames = eventName.split(' ');
+
+            eventNames.forEach(function(singleEventName) {
+                if (! events[singleEventName]) {
+                    events[singleEventName] = [];
 			}
 
-			events[eventName].push(callback);
+                events[singleEventName].push(callback);
+            } );
 
 			return self;
 		};
