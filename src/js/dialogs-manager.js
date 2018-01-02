@@ -210,7 +210,7 @@
 
         var initSettings = function (parent, userSettings) {
 
-            var parentSettings = parent.getSettings();
+            var parentSettings = $.extend(true, {}, parent.getSettings());
 
             settings = {
                 effects: parentSettings.effects,
