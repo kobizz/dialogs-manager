@@ -28,7 +28,7 @@
 
             var prototype = WidgetType.prototype = new Parent(typeName);
 
-            prototype.types = prototype.types.concat( [typeName] );
+            prototype.types = prototype.types.concat([typeName]);
 
             $.extend(prototype, properties);
 
@@ -199,10 +199,10 @@
             var classes = [];
 
             $.each(self.types, function() {
-                classes.push( settings.classes.globalPrefix + '-type-' + this );
+                classes.push(settings.classes.globalPrefix + '-type-' + this);
             });
 
-            classes.push( self.getSettings('className') );
+            classes.push(self.getSettings('className'));
 
             self.getElements('widget').addClass(classes.join(' '));
         };
@@ -395,7 +395,7 @@
             if ('object' === typeof eventName) {
                 $.each(eventName, function(singleEventName) {
                     self.on(singleEventName, this);
-                } );
+                });
 
                 return self;
             }
@@ -408,7 +408,7 @@
                 }
 
                 events[singleEventName].push(callback);
-            } );
+            });
 
             return self;
         };
@@ -682,7 +682,7 @@
 
             var settings = DialogsManager.getWidgetType('buttons').prototype.getDefaultSettings.apply(this, arguments);
 
-            return $.extend( true, settings, {
+            return $.extend(true, settings, {
                 headerMessage: '',
                 contentWidth: 'auto',
                 contentHeight: 'auto',
@@ -693,7 +693,7 @@
                     of: 'widget',
                     autoRefresh: true
                 }
-            } );
+            });
         },
         buildWidget: function () {
 
