@@ -126,6 +126,7 @@
             settings = {},
             events = {},
             elements = {},
+            hideTimeOut = 0,
             baseClosureMethods = ['refreshPosition'];
 
         var bindEvents = function () {
@@ -381,6 +382,8 @@
 
         this.hide = function () {
 
+            clearTimeout(hideTimeOut);
+
             callEffect('hide', arguments);
 
             unbindEvents();
@@ -447,7 +450,7 @@
             self.refreshPosition();
 
             if (settings.hide.auto) {
-                setTimeout(self.hide, settings.hide.autoDelay);
+                hideTimeOut = setTimeout(self.hide, settings.hide.autoDelay);
             }
 
             bindEvents();
