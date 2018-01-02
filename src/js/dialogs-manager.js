@@ -443,7 +443,7 @@
 
         this.show = function () {
 
-            elements.widget.appendTo(elements.container);
+            elements.widget.appendTo(elements.container).hide();
 
             callEffect('show', arguments);
 
