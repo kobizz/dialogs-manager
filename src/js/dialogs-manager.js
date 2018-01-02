@@ -320,21 +320,17 @@
 
             var $newElement = elements[name] = $(element || '<div>'),
                 normalizedName = normalizeClassName(name),
-                className;
+                className = [];
 
-            if (settings.classes[name]) {
-                className = settings.classes[name];
-            } else {
-                className = settings.classes.prefix + '-' + normalizedName;
+            if (type) {
+                className.push(settings.classes.globalPrefix + '-' + type);
             }
 
-            if (!type) {
-                type = normalizedName;
-            }
+            className.push(settings.classes.globalPrefix + '-' + normalizedName);
 
-            className += ' ' + settings.classes.globalPrefix + '-' + type;
+            className.push(settings.classes.prefix + '-' + normalizedName);
 
-            $newElement.addClass(className);
+            $newElement.addClass(className.join(' '));
 
             return $newElement;
         };
