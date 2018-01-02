@@ -588,7 +588,7 @@
         addButton: function (options) {
 
             var self = this,
-                $button = self.addElement(options.name, $('<button>').text(options.text));
+                $button = self.addElement(options.name, $('<' + this.getSettings('buttonTag') + '>').text(options.text), 'button');
 
             self.buttons.push($button);
 
@@ -644,7 +644,8 @@
             return {
                 hide: {
                     onButtonClick: true
-                }
+                },
+                buttonTag: 'button'
             };
         },
         onHide: function () {
