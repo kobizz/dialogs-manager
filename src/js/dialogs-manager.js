@@ -439,6 +439,8 @@
 
         this.show = function () {
 
+            clearTimeout(hideTimeOut);
+
             elements.widget.appendTo(elements.container).hide();
 
             callEffect('show', arguments);
