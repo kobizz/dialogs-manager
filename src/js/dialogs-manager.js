@@ -389,6 +389,11 @@
             return self;
         };
 
+        this.isVisible = function() {
+
+            return elements.widget.is(':visible');
+        };
+
         this.on = function (eventName, callback) {
 
             if ('object' === typeof eventName) {
