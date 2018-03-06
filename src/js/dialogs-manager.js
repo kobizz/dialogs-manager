@@ -824,4 +824,7 @@
 
     // Exporting the DialogsManager variable to global
     global.DialogsManager = DialogsManager;
-})(typeof require === 'function' ? require('jquery') : jQuery, typeof module !== 'undefined' ? module.exports : window);
+})(
+    typeof jQuery !== 'undefined' ? jQuery : typeof require === 'function' && require('jquery'),
+    typeof module !== 'undefined' ? module.exports : window
+);
