@@ -6,7 +6,7 @@ Dialogs Manager for websites. based on jQuery-UI
 ## Getting started
 
 ---
-Since this plugin based on [jQuery](http://jquery.com/) and using the [jQuery UI Position](https://jqueryui.com/position/) utility, you must to call them first in your html page:
+Since this plugin based on [jQuery](http://jquery.com/) and using the [jQuery UI Position](https://jqueryui.com/position/) utility, you must to include them first in your html page:
 ```html
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
@@ -22,7 +22,7 @@ After youv'e included all the required scripts, include the Dialogs Manager core
 
 ---
 
-Let's assume that we have a simple button:
+Assuming that we have a simple button:
 
 ```html
 <button id="click-me">Click Me</button>
