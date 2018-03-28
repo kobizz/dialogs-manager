@@ -256,7 +256,7 @@
 
             classes.push(self.getSettings('className'));
 
-            self.getElements('widget').addClass(classes.join(' '));
+            elements.widget.addClass(classes.join(' '));
         };
 
         var initSettings = function (parent, userSettings) {
@@ -490,7 +490,7 @@
 
         this.setID = function (id) {
 
-            self.getElements('widget').attr('id', id);
+            elements.widget.attr('id', id);
 
             return self;
         };
