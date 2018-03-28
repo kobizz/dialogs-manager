@@ -287,6 +287,7 @@
                     autoDelay: 5000,
                     onClick: false,
                     onOutsideClick: true,
+                    onOutsideContextMenu: false,
                     onBackgroundClick: true
                 }
             };
