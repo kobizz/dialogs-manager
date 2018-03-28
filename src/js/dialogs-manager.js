@@ -131,18 +131,30 @@
 
         var bindEvents = function () {
 
-            elements.window.on('keyup', onWindowKeyUp);
+            var windows = [elements.window];
 
-            if (settings.hide.onOutsideClick) {
-                elements.window[0].addEventListener('click', hideOnOutsideClick, true);
+            if (elements.iframe) {
+                windows.push(jQuery(elements.iframe[0].contentWindow));
             }
+
+            windows.forEach(function(window) {
+                window.on('keyup', onWindowKeyUp);
+
+                if (settings.hide.onOutsideClick) {
+                    window[0].addEventListener('click', hideOnOutsideClick, true);
+                }
+
+                if (settings.hide.onOutsideContextMenu) {
+                    window[0].addEventListener('contextmenu', hideOnOutsideClick, true);
+                }
+
+                if (settings.position.autoRefresh) {
+                    window.on('resize', self.refreshPosition);
+                }
+            });
 
             if (settings.hide.onClick || settings.hide.onBackgroundClick) {
                 elements.widget.on('click', hideOnClick);
-            }
-
-            if (settings.position.autoRefresh) {
-                elements.window.on('resize', self.refreshPosition);
             }
         };
 
@@ -181,6 +193,41 @@
             });
         };
 
+        var fixIframePosition = function(position) {
+            if (! position.my) {
+                return;
+            }
+
+            var horizontalOffsetRegex = /left|right/,
+                extraOffsetRegex = /(\+|-[0-9]+)?$/,
+                iframeOffset = elements.iframe.offset(),
+                iframeWindow = elements.iframe[0].contentWindow,
+                myParts = position.my.split(' '),
+                fixedParts = [];
+
+            myParts.forEach(function( part ) {
+                var fixedPart = part.replace(extraOffsetRegex, function( partOffset ) {
+                    partOffset = +partOffset || 0;
+
+                    if (horizontalOffsetRegex.test(part)) {
+                        partOffset += iframeOffset.left - iframeWindow.scrollX;
+                    } else {
+                        partOffset += iframeOffset.top - iframeWindow.scrollY;
+                    }
+
+                    if (partOffset > 0) {
+                        partOffset = '+' + partOffset;
+                    }
+
+                    return partOffset;
+                });
+
+                fixedParts.push(fixedPart);
+            });
+
+            position.my = fixedParts.join(' ');
+        };
+
         var initElements = function () {
 
             self.addElement('widget');
@@ -190,6 +237,10 @@
             self.addElement('window', window);
 
             self.addElement('container', settings.container);
+
+            if (settings.iframe) {
+                self.addElement('iframe', settings.iframe);
+            }
 
             var id = self.getSettings('id');
 
@@ -222,6 +273,7 @@
                     preventClose: '.' + parentSettings.classPrefix + '-prevent-close'
                 },
                 container: 'body',
+                iframe: null,
                 position: {
                     element: 'widget',
                     my: 'center',
@@ -301,18 +353,30 @@
 
         var unbindEvents = function() {
 
-            elements.window.off('keyup', onWindowKeyUp);
+            var windows = [elements.window];
 
-            if (settings.hide.onOutsideClick) {
-                elements.window[0].removeEventListener('click', hideOnOutsideClick, true);
+            if (elements.iframe) {
+                windows.push(jQuery(elements.iframe[0].contentWindow));
             }
+
+            windows.forEach(function(window) {
+                window.off('keyup', onWindowKeyUp);
+
+                if (settings.hide.onOutsideClick) {
+                    window[0].removeEventListener('click', hideOnOutsideClick, true);
+                }
+
+                if (settings.hide.onOutsideContextMenu) {
+                    window[0].removeEventListener('contextmenu', hideOnOutsideClick, true);
+                }
+
+                if (settings.position.autoRefresh) {
+                    window.off('resize', self.refreshPosition);
+                }
+            });
 
             if (settings.hide.onClick || settings.hide.onBackgroundClick) {
                 elements.widget.off('click', hideOnClick);
-            }
-
-            if (settings.position.autoRefresh) {
-                elements.window.off('resize', self.refreshPosition);
             }
         };
 
@@ -473,6 +537,10 @@
 
             if (elements[position.of]) {
                 position.of = elements[position.of];
+            }
+
+            if (elements.iframe) {
+                fixIframePosition(position);
             }
 
             elements[position.element].position(position);
