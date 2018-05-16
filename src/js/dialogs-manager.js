@@ -228,6 +228,28 @@
             position.my = fixedParts.join(' ');
         };
 
+        var hideOnClick = function(event) {
+
+            if (settings.hide.onClick) {
+
+                if ($(event.target).closest(settings.selectors.preventClose).length) {
+                    return;
+                }
+            } else if (event.target !== this) {
+                return;
+            }
+
+            self.hide();
+        };
+
+        var hideOnOutsideClick = function(event) {
+            if ($(event.target).closest(elements.widget).length) {
+                return;
+            }
+
+            self.hide();
+        };
+
         var initElements = function () {
 
             self.addElement('widget');
@@ -321,28 +343,6 @@
             });
         };
 
-        var hideOnClick = function(event) {
-
-            if (settings.hide.onClick) {
-
-                if ($(event.target).closest(settings.selectors.preventClose).length) {
-                    return;
-                }
-            } else if (event.target !== this) {
-                return;
-            }
-
-            self.hide();
-        };
-
-        var hideOnOutsideClick = function(event) {
-            if ($(event.target).closest(elements.widget).length) {
-                return;
-            }
-
-            self.hide();
-        };
-
         var onWindowKeyUp = function(event) {
             var ESC_KEY = 27,
                 keyCode = event.which;
@@ -400,6 +400,22 @@
             return $newElement;
         };
 
+        this.destroy = function() {
+
+            unbindEvents();
+
+            elements.widget.remove();
+
+            self.trigger('destroy');
+
+            return self;
+        };
+
+        this.getElements = function (item) {
+
+            return item ? elements[item] : elements;
+        };
+
         this.getSettings = function (setting) {
 
             var copy = Object.create(settings);
@@ -409,6 +425,19 @@
             }
 
             return copy;
+        };
+
+        this.hide = function () {
+
+            clearTimeout(hideTimeOut);
+
+            callEffect('hide', arguments);
+
+            unbindEvents();
+
+            self.trigger('hide');
+
+            return self;
         };
 
         this.init = function (parent, properties) {
@@ -432,24 +461,6 @@
             }
 
             self.trigger('ready');
-
-            return self;
-        };
-
-        this.getElements = function (item) {
-
-            return item ? elements[item] : elements;
-        };
-
-        this.hide = function () {
-
-            clearTimeout(hideTimeOut);
-
-            callEffect('hide', arguments);
-
-            unbindEvents();
-
-            self.trigger('hide');
 
             return self;
         };
@@ -482,16 +493,35 @@
             return self;
         };
 
-        this.setMessage = function (message) {
+        this.refreshPosition = function () {
 
-            elements.message.html(message);
+            if (! settings.position.enable) {
+                return;
+            }
 
-            return self;
+            var position = $.extend({}, settings.position);
+
+            if (elements[position.of]) {
+                position.of = elements[position.of];
+            }
+
+            if (elements.iframe) {
+                fixIframePosition(position);
+            }
+
+            elements[position.element].position(position);
         };
 
         this.setID = function (id) {
 
             elements.widget.attr('id', id);
+
+            return self;
+        };
+
+        this.setMessage = function (message) {
+
+            elements.message.html(message);
 
             return self;
         };
@@ -528,25 +558,6 @@
             return self;
         };
 
-        this.refreshPosition = function () {
-
-            if (! settings.position.enable) {
-                return;
-            }
-
-            var position = $.extend({}, settings.position);
-
-            if (elements[position.of]) {
-                position.of = elements[position.of];
-            }
-
-            if (elements.iframe) {
-                fixIframePosition(position);
-            }
-
-            elements[position.element].position(position);
-        };
-
         this.trigger = function (eventName, params) {
 
             var methodName = 'on' + eventName[0].toUpperCase() + eventName.slice(1);
@@ -565,17 +576,6 @@
 
                 callback.call(self, params);
             });
-
-            return self;
-        };
-
-        this.destroy = function() {
-
-            unbindEvents();
-
-            elements.widget.remove();
-
-            self.trigger('destroy');
 
             return self;
         };
