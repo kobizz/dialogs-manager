@@ -230,6 +230,10 @@
 
         var hideOnClick = function(event) {
 
+            if(isContextMenuClickEvent(event)) {
+                return;
+            }
+
             if (settings.hide.onClick) {
 
                 if ($(event.target).closest(settings.selectors.preventClose).length) {
@@ -243,7 +247,8 @@
         };
 
         var hideOnOutsideClick = function(event) {
-            if ($(event.target).closest(elements.widget).length) {
+
+            if (isContextMenuClickEvent(event) || $(event.target).closest(elements.widget).length) {
                 return;
             }
 
@@ -333,6 +338,11 @@
 
                 self.on(eventName, this);
             });
+        };
+
+        var isContextMenuClickEvent = function (event) {
+            // Firefox fires `click` event on every `contextmenu` event.
+            return event.type === 'click' && event.button === 2;
         };
 
         var normalizeClassName = function (name) {
