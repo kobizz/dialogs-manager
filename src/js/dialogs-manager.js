@@ -640,6 +640,10 @@
         },
         activeKeyDown: function (event) {
 
+            if (!this.focusedButton) {
+                return;
+            }
+
             var TAB_KEY = 9;
 
             if (event.which === TAB_KEY) {
