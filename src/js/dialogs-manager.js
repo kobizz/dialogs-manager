@@ -215,7 +215,7 @@
                         partOffset += iframeOffset.top - iframeWindow.scrollY;
                     }
 
-                    if (partOffset > 0) {
+                    if (partOffset >= 0) {
                         partOffset = '+' + partOffset;
                     }
 
