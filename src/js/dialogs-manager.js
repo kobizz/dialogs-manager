@@ -197,7 +197,7 @@
             }
 
             var horizontalOffsetRegex = /left|right/,
-                extraOffsetRegex = /(\+|-[0-9]+)?$/,
+                extraOffsetRegex = /([+-]\d+)?$/,
                 iframeOffset = elements.iframe.offset(),
                 iframeWindow = elements.iframe[0].contentWindow,
                 myParts = position.my.split(' '),
