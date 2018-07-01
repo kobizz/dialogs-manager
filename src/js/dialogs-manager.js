@@ -696,7 +696,9 @@
         addButton: function (options) {
 
             var self = this,
-                $button = self.addElement(options.name, $('<' + this.getSettings('buttonTag') + '>').text(options.text), 'button');
+                settings = self.getSettings(),
+                buttonSettings = jQuery.extend(settings.button, options),
+                $button = self.addElement(options.name, $('<' + buttonSettings.tag + '>').text(options.text), 'button');
 
             self.buttons.push($button);
 
@@ -753,7 +755,9 @@
                 hide: {
                     onButtonClick: true
                 },
-                buttonTag: 'button'
+                button: {
+                    tag: 'button'
+                }
             };
         },
         onHide: function () {
