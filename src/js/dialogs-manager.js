@@ -704,7 +704,7 @@
 
             var buttonFn = function () {
 
-                if (self.getSettings('hide').onButtonClick) {
+                if (settings.hide.onButtonClick) {
                     self.hide();
                 }
 
