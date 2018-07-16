@@ -525,7 +525,7 @@
                 position.of = elements[position.of];
             }
 
-            if (elements.iframe) {
+            if (settings.iframe) {
                 fixIframePosition(position);
             }
 
