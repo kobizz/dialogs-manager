@@ -555,7 +555,7 @@
 
         this.setSettings = function(key, value) {
 
-            if ('object' === typeof value) {
+            if (jQuery.isPlainObject(value)) {
                 $.extend(true, settings[key], value);
             } else {
                 settings[key] = value;
