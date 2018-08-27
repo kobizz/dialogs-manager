@@ -513,6 +513,27 @@
             return self;
         };
 
+        this.off = function(eventName, callback) {
+
+            if (! events[ eventName ]) {
+                return self;
+            }
+
+            if (! callback) {
+                delete events[ eventName ];
+
+                return self;
+            }
+
+            var callbackIndex = events[ eventName ].indexOf(callback);
+
+            if (-1 !== callbackIndex) {
+                delete events[ eventName ][ callbackIndex ];
+            }
+
+            return self;
+        };
+
         this.refreshPosition = function () {
 
             if (! settings.position.enable) {
