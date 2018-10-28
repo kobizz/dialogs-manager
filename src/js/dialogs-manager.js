@@ -528,7 +528,7 @@
             var callbackIndex = events[ eventName ].indexOf(callback);
 
             if (-1 !== callbackIndex) {
-                delete events[ eventName ][ callbackIndex ];
+                events[ eventName ].splice( callbackIndex, 1 );
             }
 
             return self;
