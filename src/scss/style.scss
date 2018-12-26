@@ -44,4 +44,6 @@
     margin: 0 10px;
     cursor: pointer;
   }
-}
+}  &prevent-scroll {
+    overflow: hidden;
+  }

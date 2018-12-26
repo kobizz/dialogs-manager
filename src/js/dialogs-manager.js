@@ -306,12 +306,14 @@
                 effects: parentSettings.effects,
                 classes: {
                     globalPrefix: parentSettings.classPrefix,
-                    prefix: parentSettings.classPrefix + '-' + widgetName
+                    prefix: parentSettings.classPrefix + '-' + widgetName,
+                    preventScroll: parentSettings.classPrefix + '-prevent-scroll'
                 },
                 selectors: {
                     preventClose: '.' + parentSettings.classPrefix + '-prevent-close'
                 },
                 container: 'body',
+                preventScroll: false,
                 iframe: null,
                 position: {
                     element: 'widget',
@@ -456,6 +458,10 @@
             callEffect('hide', arguments);
 
             unbindEvents();
+
+            if (settings.preventScroll) {
+                this.getElements('body').removeClass(settings.classes.preventScroll);
+            }
 
             self.trigger('hide');
 
@@ -602,6 +608,10 @@
             }
 
             bindEvents();
+
+            if (settings.preventScroll) {
+                this.getElements('body').addClass(settings.classes.preventScroll);
+            }
 
             self.trigger('show');
 
