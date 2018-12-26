@@ -271,6 +271,8 @@
 
             self.addElement('window', window);
 
+            self.addElement('body', document.body);
+
             self.addElement('container', settings.container);
 
             if (settings.iframe) {
