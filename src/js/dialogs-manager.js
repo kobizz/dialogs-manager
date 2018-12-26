@@ -460,7 +460,7 @@
             unbindEvents();
 
             if (settings.preventScroll) {
-                this.getElements('body').removeClass(settings.classes.preventScroll);
+                self.getElements('body').removeClass(settings.classes.preventScroll);
             }
 
             self.trigger('hide');
@@ -610,7 +610,7 @@
             bindEvents();
 
             if (settings.preventScroll) {
-                this.getElements('body').addClass(settings.classes.preventScroll);
+                self.getElements('body').addClass(settings.classes.preventScroll);
             }
 
             self.trigger('show');
