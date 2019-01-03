@@ -1,5 +1,5 @@
 /*!
- * Dialogs Manager v4.6.0
+ * Dialogs Manager v4.6.1
  * https://github.com/kobizz/dialogs-manager
  *
  * Copyright Kobi Zaltzberg
