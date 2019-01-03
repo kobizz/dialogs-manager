@@ -570,7 +570,7 @@
 
         this.setHeaderMessage = function (message) {
 
-            this.getElements('header').html(message);
+            self.getElements('header').html(message);
 
             return this;
         };
