@@ -863,8 +863,13 @@
             $widgetContent.prepend($closeButton);
         },
         attachEvents: function() {
-            if (this.getSettings('closeButton')) {
-                this.getElements('closeButton').on('click', this.hide);
+
+            var self = this;
+
+            if (self.getSettings('closeButton')) {
+                self.getElements('closeButton').on('click', function() {
+                    self.hide();
+                });
             }
         },
         onReady: function(){
