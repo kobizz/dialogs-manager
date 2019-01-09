@@ -1,54 +1,76 @@
 .dialog- {
 
-  &widget {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    background-color: rgba(0, 0, 0, 0.5);
+	&widget {
+		background-color: #EAEAEA;
+		position: absolute;
+		width: 350px;
+		height: 150px;
+		margin: auto;
+		border-radius: 5px;
+		box-shadow: 2px 8px 23px 3px rgba(0, 0, 0, 0.2);
 
-    * {
-      box-sizing: border-box;
-    }
+		* {
+			box-sizing: border-box;
+		}
+	}
 
-    &-header {
-      height: 20px;
-      background-image: linear-gradient(to top, #A0A09D, #D9D9D9);
-      font-size: 14px;
-      text-align: center;
-    }
+	&header {
+		height: 20px;
+		color: #5f5f5f;
+		background-image: linear-gradient(to top, #A0A09D, #D9D9D9);
+		font-size: 14px;
+		text-align: center;
+	}
 
-    &-content {
-      background-color: #EAEAEA;
-      position: absolute;
-      width: 350px;
-      height: 150px;
-      margin: auto;
-      border-radius: 5px;
-      box-shadow: 2px 8px 23px 3px rgba(0, 0, 0, 0.2);
-    }
-  }
+	&message {
+		height: 70%;
+		padding: 10px;
+		font-family: sans-serif;
+		font-size: 14px;
+		line-height: 1.5;
+		color: #808080;
+	}
 
-  &message {
-    height: 70%;
-    padding: 10px;
-    font-family: sans-serif;
-    font-size: 14px;
-  }
+	&buttons-wrapper {
+		text-align: center;
 
-  &buttons-wrapper {
-    text-align: center;
+		> button {
+			margin: 0 10px;
+			cursor: pointer;
+		}
+	}
 
-    > button {
-      margin: 0 10px;
-      cursor: pointer;
-    }
-  }
+	&prevent-scroll {
+		overflow: hidden;
+	}
 
-  &prevent-scroll {
-    overflow: hidden;
-  }
+	&close-button {
+		position: absolute;
+		right: 5px;
+		color: #6b6b6b;
+		cursor: pointer;
+
+		&-icon {
+			font-style: normal;
+
+			&:before {
+				content: 'x';
+			}
+		}
+	}
+}
+
+.dialog-type-lightbox {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	background-color: rgba(0, 0, 0, 0.5);
+
+	.dialog-widget-content {
+		@extend .dialog-widget;
+	}
 }
