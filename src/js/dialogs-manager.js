@@ -325,7 +325,6 @@
                     element: 'widget',
                     my: 'center',
                     at: 'center',
-                    of: 'container',
                     enable: true,
                     autoRefresh: false
                 },
@@ -554,9 +553,7 @@
 
             var position = $.extend({}, settings.position);
 
-            if (elements[position.of]) {
-                position.of = elements[position.of];
-            }
+            position.of = elements[position.of] || window;
 
             if (settings.iframe) {
                 fixIframePosition(position);
