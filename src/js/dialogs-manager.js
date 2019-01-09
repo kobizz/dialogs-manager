@@ -279,6 +279,10 @@
                 self.addElement('iframe', settings.iframe);
             }
 
+            if (settings.closeButton) {
+                self.addElement('closeButton', '<div><i class="' + settings.closeButtonClass + '"></i></div>');
+            }
+
             var id = self.getSettings('id');
 
             if (id) {
@@ -315,6 +319,8 @@
                 container: 'body',
                 preventScroll: false,
                 iframe: null,
+                closeButton: false,
+                closeButtonClass: parentSettings.classPrefix + '-close-button-icon',
                 position: {
                     element: 'widget',
                     my: 'center',
@@ -484,9 +490,7 @@
 
             self.buildWidget();
 
-            if (self.attachEvents) {
-                self.attachEvents();
-            }
+            self.attachEvents();
 
             self.trigger('ready');
 
@@ -654,6 +658,21 @@
         this.setHeaderMessage(settings.headerMessage);
 
         this.setMessage(settings.message);
+
+        if (this.getSettings('closeButton')) {
+            elements.widget.prepend(elements.closeButton);
+        }
+    };
+
+    DialogsManager.Widget.prototype.attachEvents = function() {
+
+        var self = this;
+
+        if (self.getSettings('closeButton')) {
+            self.getElements('closeButton').on('click', function() {
+                self.hide();
+            });
+        }
     };
 
     DialogsManager.Widget.prototype.getDefaultSettings = function () {
@@ -834,8 +853,6 @@
             return $.extend(true, settings, {
                 contentWidth: 'auto',
                 contentHeight: 'auto',
-                closeButton: false,
-                closeButtonClass: 'fa fa-times',
                 position: {
                     element: 'widgetContent',
                     of: 'widget',
@@ -854,22 +871,8 @@
 
             elements.widget.html($widgetContent);
 
-            if (! this.getSettings('closeButton')) {
-                return;
-            }
-
-            var $closeButton = this.addElement('closeButton', '<div><i class="' + this.getSettings('closeButtonClass') + '"></i></div>');
-
-            $widgetContent.prepend($closeButton);
-        },
-        attachEvents: function() {
-
-            var self = this;
-
-            if (self.getSettings('closeButton')) {
-                self.getElements('closeButton').on('click', function() {
-                    self.hide();
-                });
+            if (elements.closeButton) {
+                $widgetContent.prepend(elements.closeButton);
             }
         },
         onReady: function(){
