@@ -553,7 +553,13 @@
 
             var position = $.extend({}, settings.position);
 
-            position.of = elements[position.of] || window;
+            if (elements[position.of]) {
+                position.of = elements[position.of];
+            }
+
+            if (! position.of) {
+                position.of = window;
+            }
 
             if (settings.iframe) {
                 fixIframePosition(position);
