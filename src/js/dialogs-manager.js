@@ -136,7 +136,9 @@
             }
 
             windows.forEach(function(window) {
-                window.on('keyup', onWindowKeyUp);
+                if (settings.hide.onEscKeyPress) {
+                    window.on( 'keyup', onWindowKeyUp );
+                }
 
                 if (settings.hide.onOutsideClick) {
                     window[0].addEventListener('click', hideOnOutsideClick, true);
@@ -334,7 +336,8 @@
                     onClick: false,
                     onOutsideClick: true,
                     onOutsideContextMenu: false,
-                    onBackgroundClick: true
+                    onBackgroundClick: true,
+                    onEscKeyPress: true,
                 }
             };
 
@@ -390,7 +393,9 @@
             }
 
             windows.forEach(function(window) {
-                window.off('keyup', onWindowKeyUp);
+                if (settings.hide.onEscKeyPress) {
+                    window.off( 'keyup', onWindowKeyUp );
+                }
 
                 if (settings.hide.onOutsideClick) {
                     window[0].removeEventListener('click', hideOnOutsideClick, true);
