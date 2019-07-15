@@ -257,9 +257,7 @@
 				return false;
 			}
 
-			if ($(event.target).closest(settings.hide.ignore).length) {
-				return true;
-			}
+			return !! $(event.target).closest(settings.hide.ignore).length;
 		};
 
 		var hideOnOutsideClick = function(event) {
