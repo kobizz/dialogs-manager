@@ -252,9 +252,19 @@
 			self.hide();
 		};
 
+		var isIgnoredTarget = function(event) {
+			if (! settings.hide.ignore) {
+				return false;
+			}
+
+			if ($(event.target).closest(settings.hide.ignore).length) {
+				return true;
+			}
+		};
+
 		var hideOnOutsideClick = function(event) {
 
-			if (isContextMenuClickEvent(event) || $(event.target).closest(elements.widget).length) {
+			if (isContextMenuClickEvent(event) || $(event.target).closest(elements.widget).length || isIgnoredTarget(event)) {
 				return;
 			}
 
@@ -336,6 +346,7 @@
 					onOutsideContextMenu: false,
 					onBackgroundClick: true,
 					onEscKeyPress: true,
+					ignore: ''
 				}
 			};
 
