@@ -253,6 +253,7 @@
 		};
 
 		var isIgnoredTarget = function(event) {
+
 			if (! settings.hide.ignore) {
 				return false;
 			}
