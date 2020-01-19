@@ -589,7 +589,7 @@
 
 			self.getElements('header').html(message);
 
-			return this;
+			return self;
 		};
 
 		this.setMessage = function(message) {
