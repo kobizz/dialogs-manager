@@ -468,6 +468,10 @@
 
 		this.hide = function() {
 
+			if (! this.isVisible()) {
+				return;
+			}
+
 			clearTimeout(hideTimeOut);
 
 			callEffect('hide', arguments);
