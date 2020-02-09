@@ -469,7 +469,7 @@
 
 		this.hide = function() {
 
-			if (this.isVisible()) {
+			if (! this.isVisible()) {
 				return;
 			}
 
