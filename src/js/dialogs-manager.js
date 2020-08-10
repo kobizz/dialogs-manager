@@ -289,7 +289,10 @@
 			}
 
 			if (settings.closeButton) {
-				self.addElement('closeButton', '<div><i class="' + settings.closeButtonClass + '"></i></div>');
+				const tabIndex = ( settings.closeButtonOptions && settings.closebuttonOptions.tabIndex ) ? settings.closebuttonOptions.tabIndex : '0',
+					ariaLabel = ( settings.closeButtonOptions && settings.closebuttonOptions.ariaLabel ) ? settings.closebuttonOptions.ariaLabel : 'Close';
+
+				self.addElement('closeButton', '<div tabindex="' + tabIndex + '" role="button" aria-label="' + ariaLabel + ' (Esc)"><i class="' + settings.closeButtonClass + '"></i></div>');
 			}
 
 			var id = self.getSettings('id');
