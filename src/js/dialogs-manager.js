@@ -772,7 +772,7 @@
 
 			classes += settings.classes.globalPrefix + '-button';
 
-			var $button = self.addElement(options.name, $('<' + buttonSettings.tag + '>').text(options.text), classes);
+			var $button = self.addElement(options.name, $('<' + buttonSettings.tag + '>').html(options.text), classes);
 
 			self.buttons.push($button);
 
