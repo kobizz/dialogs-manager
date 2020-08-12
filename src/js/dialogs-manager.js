@@ -289,10 +289,12 @@
 			}
 
 			if (settings.closeButton) {
-				const tabIndex = ( settings.closeButtonOptions && settings.closebuttonOptions.tabIndex ) ? settings.closebuttonOptions.tabIndex : '0',
-					ariaLabel = ( settings.closeButtonOptions && settings.closebuttonOptions.ariaLabel ) ? settings.closebuttonOptions.ariaLabel : 'Close';
+				const $button = $('<div>', settings.closeButtonOptions.attributes),
+					$buttonIcon = $('<i>', {class: settings.closeButtonOptions.class});
 
-				self.addElement('closeButton', '<div tabindex="' + tabIndex + '" role="button" aria-label="' + ariaLabel + ' (Esc)"><i class="' + settings.closeButtonClass + '"></i></div>');
+				$button.append($buttonIcon);
+
+				self.addElement('closeButton', $button);
 			}
 
 			var id = self.getSettings('id');
@@ -332,7 +334,10 @@
 				preventScroll: false,
 				iframe: null,
 				closeButton: false,
-				closeButtonClass: parentSettings.classPrefix + '-close-button-icon',
+				closeButtonOptions: {
+					class: parentSettings.classPrefix + '-close-button-icon',
+					attributes: {},
+				},
 				position: {
 					element: 'widget',
 					my: 'center',
