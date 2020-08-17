@@ -289,6 +289,11 @@
 			}
 
 			if (settings.closeButton) {
+				if ( settings.closeButtonClass ) {
+					//  Backwards compatibility
+					settings.closeButtonOptions.class = settings.closeButtonClass;
+				}
+
 				const $button = $('<div>', settings.closeButtonOptions.attributes),
 					$buttonIcon = $('<i>', {class: settings.closeButtonOptions.class});
 
