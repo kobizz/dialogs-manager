@@ -1000,5 +1000,5 @@
 	global.DialogsManager = DialogsManager;
 })(
 	typeof jQuery !== 'undefined' ? jQuery : typeof require === 'function' && require('jquery'),
-	typeof module !== 'undefined' ? module.exports : window
+	(typeof module !== 'undefined' && typeof module.exports !== 'undefined') ? module.exports : window
 );
