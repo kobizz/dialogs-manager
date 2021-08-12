@@ -295,8 +295,7 @@
 				}
 
 				const $button = $('<div>', settings.closeButtonOptions.attributes),
-					closeButtonElement = settings.closeButtonOptions.iconElement ||  '<i>',
-					$buttonIcon = $( closeButtonElement ).addClass( settings.closeButtonOptions.iconClass );
+					$buttonIcon = $( settings.closeButtonOptions.iconElement ).addClass( settings.closeButtonOptions.iconClass );
 
 				$button.append($buttonIcon);
 
@@ -343,7 +342,7 @@
 				closeButtonOptions: {
 					iconClass: parentSettings.classPrefix + '-close-button-icon',
 					attributes: {},
-					iconElement: null,
+					iconElement: '<i>',
 				},
 				position: {
 					element: 'widget',
