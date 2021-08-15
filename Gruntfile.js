@@ -2,28 +2,29 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        postcss: {
-            options: {
-                processors: [
-                    require('autoprefixer')({
-                        browsers: ['last 2 versions']
-                    })
-                ],
-                dist: {
-                    files: [{
-                        src: 'dist/css/*.css'
-                    }]
-                }
-            }
-        },
         sass: {
             options: {
+                implementation: require('node-sass'),
                 sourceMap: true
             },
             dist: {
                 files: {
                     'dist/css/style.css': 'src/scss/style.scss'
                 }
+            }
+        },
+        postcss: {
+            options: {
+                processors: [
+                    require('autoprefixer')()
+                ],
+                map: {
+                    inline: false,
+                    annotation: 'dist/css/'
+                }
+            },
+            dist: {
+                src: 'dist/css/*.css'
             }
         },
         uglify: {
