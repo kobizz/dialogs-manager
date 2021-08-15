@@ -295,7 +295,7 @@
 				}
 
 				const $button = $('<div>', settings.closeButtonOptions.attributes),
-					$buttonIcon = $( settings.closeButtonOptions.iconElement ).addClass( settings.closeButtonOptions.iconClass );
+					$buttonIcon = $(settings.closeButtonOptions.iconElement).addClass(settings.closeButtonOptions.iconClass);
 
 				$button.append($buttonIcon);
 
