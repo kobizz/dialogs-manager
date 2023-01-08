@@ -294,7 +294,7 @@
 					settings.closeButtonOptions.iconClass = settings.closeButtonClass;
 				}
 
-				const $button = $('<div>', settings.closeButtonOptions.attributes),
+				const $button = $('<a>', settings.closeButtonOptions.attributes),
 					$buttonIcon = $(settings.closeButtonOptions.iconElement).addClass(settings.closeButtonOptions.iconClass);
 
 				$button.append($buttonIcon);
@@ -316,7 +316,13 @@
 
 			classes.push(self.getSettings('className'));
 
-			elements.widget.addClass(classes.join(' '));
+			elements.widget
+				.addClass(classes.join(' '))
+				.attr({
+					'aria-modal': true,
+					'role': 'document',
+					'tabindex': 0,
+				});
 		};
 
 		var initSettings = function(parent, userSettings) {
@@ -330,10 +336,10 @@
 				classes: {
 					globalPrefix: parentSettings.classPrefix,
 					prefix: parentSettings.classPrefix + '-' + widgetName,
-					preventScroll: parentSettings.classPrefix + '-prevent-scroll'
+					preventScroll: parentSettings.classPrefix + '-prevent-scroll',
 				},
 				selectors: {
-					preventClose: '.' + parentSettings.classPrefix + '-prevent-close'
+					preventClose: '.' + parentSettings.classPrefix + '-prevent-close',
 				},
 				container: 'body',
 				preventScroll: false,
@@ -341,7 +347,12 @@
 				closeButton: false,
 				closeButtonOptions: {
 					iconClass: parentSettings.classPrefix + '-close-button-icon',
-					attributes: {},
+					attributes: {
+						role: 'button',
+						'tabindex': 0,
+						'aria-label': 'Close',
+						href: 'javascript:void(0);',
+					},
 					iconElement: '<i>',
 				},
 				position: {
@@ -349,7 +360,7 @@
 					my: 'center',
 					at: 'center',
 					enable: true,
-					autoRefresh: false
+					autoRefresh: false,
 				},
 				hide: {
 					auto: false,
@@ -359,8 +370,8 @@
 					onOutsideContextMenu: false,
 					onBackgroundClick: true,
 					onEscKeyPress: true,
-					ignore: ''
-				}
+					ignore: '',
+				},
 			};
 
 			$.extend(true, settings, self.getDefaultSettings(), userSettings);
