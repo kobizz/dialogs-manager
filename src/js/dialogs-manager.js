@@ -351,7 +351,7 @@
 						role: 'button',
 						'tabindex': 0,
 						'aria-label': 'Close',
-						href: 'javascript:void(0);',
+						href: '#',
 					},
 					iconElement: '<i>',
 				},
@@ -711,7 +711,8 @@
 		var self = this;
 
 		if (self.getSettings('closeButton')) {
-			self.getElements('closeButton').on('click', function() {
+			self.getElements('closeButton').on('click', function(event) {
+				event.preventDefault();
 				self.hide();
 			});
 		}
