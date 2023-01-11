@@ -4,8 +4,7 @@
 	"description": "Dialogs Manager for websites. based on jQuery-UI",
 	"main": "src/dialogs-manager.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"version": "grunt uglify & git add ."
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
 		"type": "git",
