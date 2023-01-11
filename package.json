@@ -1,36 +1,37 @@
 {
-  "name": "dialogs-manager",
-  "version": "4.9.0",
-  "description": "Dialogs Manager for websites. based on jQuery-UI",
-  "main": "src/dialogs-manager.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kobizz/dialogs-manager.git"
-  },
-  "author": "Kobi Zaltzberg",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kobizz/dialogs-manager/issues"
-  },
-  "homepage": "https://github.com/kobizz/dialogs-manager#readme",
-  "browserslist": [
-    "defaults"
-  ],
-  "devDependencies": {
-    "autoprefixer": "^9.8.6",
-    "grunt": "^1.4.1",
-    "grunt-contrib-jshint": "^3.0.0",
-    "grunt-contrib-uglify": "^5.0.1",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-postcss": "^0.9.0",
-    "grunt-sass": "^3.1.0",
-    "node-sass": "^6.0.1"
-  },
-  "dependencies": {
-    "jquery": "^3.6.0",
-    "jquery-ui": "^1.12.1"
-  }
+	"name": "dialogs-manager",
+	"version": "4.9.0",
+	"description": "Dialogs Manager for websites. based on jQuery-UI",
+	"main": "src/dialogs-manager.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"postversion": "grunt scripts"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/kobizz/dialogs-manager.git"
+	},
+	"author": "Kobi Zaltzberg",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/kobizz/dialogs-manager/issues"
+	},
+	"homepage": "https://github.com/kobizz/dialogs-manager#readme",
+	"browserslist": [
+		"defaults"
+	],
+	"devDependencies": {
+		"autoprefixer": "^9.8.6",
+		"grunt": "^1.4.1",
+		"grunt-contrib-jshint": "^3.0.0",
+		"grunt-contrib-uglify": "^5.0.1",
+		"grunt-contrib-watch": "^1.1.0",
+		"grunt-postcss": "^0.9.0",
+		"grunt-sass": "^3.1.0",
+		"node-sass": "^6.0.1"
+	},
+	"dependencies": {
+		"jquery": "^3.6.0",
+		"jquery-ui": "^1.12.1"
+	}
 }
