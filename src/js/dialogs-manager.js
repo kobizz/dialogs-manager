@@ -163,7 +163,7 @@
 			var effect = settings.effects[intent],
 				$widget = elements.widget;
 
-			if ($.isFunction(effect)) {
+			if ('function' === typeof effect) {
 				effect.apply($widget, params);
 			} else {
 
@@ -808,7 +808,7 @@
 					self.hide();
 				}
 
-				if ($.isFunction(options.callback)) {
+				if ('function' === typeof options.callback) {
 					options.callback.call(this, self);
 				}
 			};
