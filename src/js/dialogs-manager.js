@@ -15,7 +15,7 @@
 	 */
 	var DialogsManager = {
 		widgetsTypes: {},
-		createWidgetType: function(typeName, properties, Parent) {
+		createWidgetType(typeName, properties, Parent) {
 
 			if (!Parent) {
 				Parent = this.Widget;
@@ -41,7 +41,7 @@
 
 			return WidgetType;
 		},
-		addWidgetType: function(typeName, properties, Parent) {
+		addWidgetType(typeName, properties, Parent) {
 
 			if (properties && properties.prototype instanceof this.Widget) {
 				return this.widgetsTypes[typeName] = properties;
@@ -49,7 +49,7 @@
 
 			return this.widgetsTypes[typeName] = this.createWidgetType(typeName, properties, Parent);
 		},
-		getWidgetType: function(widgetType) {
+		getWidgetType(widgetType) {
 
 			return this.widgetsTypes[widgetType];
 		}
@@ -743,7 +743,7 @@
 	DialogsManager.widgetsTypes.simple = DialogsManager.Widget;
 
 	DialogsManager.addWidgetType('buttons', {
-		activeKeyUp: function(event) {
+		activeKeyUp(event) {
 
 			var TAB_KEY = 9;
 
@@ -755,7 +755,7 @@
 				this.hotKeys[event.which](this);
 			}
 		},
-		activeKeyDown: function(event) {
+		activeKeyDown(event) {
 
 			if (!this.focusedButton) {
 				return;
@@ -788,7 +788,7 @@
 				this.focusedButton = this.buttons[nextButtonIndex].trigger('focus');
 			}
 		},
-		addButton: function(options) {
+		addButton(options) {
 
 			var self = this,
 				settings = self.getSettings(),
@@ -827,14 +827,14 @@
 
 			return self;
 		},
-		bindHotKeys: function() {
+		bindHotKeys() {
 
 			this.getElements('window').on({
 				keyup: this.activeKeyUp,
 				keydown: this.activeKeyDown
 			});
 		},
-		buildWidget: function() {
+		buildWidget() {
 
 			DialogsManager.Widget.prototype.buildWidget.apply(this, arguments);
 
@@ -842,14 +842,14 @@
 
 			this.getElements('widget').append($buttonsWrapper);
 		},
-		getClosureMethods: function() {
+		getClosureMethods() {
 
 			return [
 				'activeKeyUp',
 				'activeKeyDown'
 			];
 		},
-		getDefaultSettings: function() {
+		getDefaultSettings() {
 
 			return {
 				hide: {
@@ -860,11 +860,11 @@
 				}
 			};
 		},
-		onHide: function() {
+		onHide() {
 
 			this.unbindHotKeys();
 		},
-		onInit: function() {
+		onInit() {
 
 			this.buttons = [];
 
@@ -872,7 +872,7 @@
 
 			this.focusedButton = null;
 		},
-		onShow: function() {
+		onShow() {
 
 			this.bindHotKeys();
 
@@ -884,7 +884,7 @@
 				this.focusedButton.trigger('focus');
 			}
 		},
-		unbindHotKeys: function() {
+		unbindHotKeys() {
 
 			this.getElements('window').off({
 				keyup: this.activeKeyUp,
@@ -894,7 +894,7 @@
 	});
 
 	DialogsManager.addWidgetType('lightbox', DialogsManager.getWidgetType('buttons').extend('lightbox', {
-		getDefaultSettings: function() {
+		getDefaultSettings() {
 
 			var settings = DialogsManager.getWidgetType('buttons').prototype.getDefaultSettings.apply(this, arguments);
 
@@ -908,7 +908,7 @@
 				}
 			});
 		},
-		buildWidget: function() {
+		buildWidget() {
 
 			DialogsManager.getWidgetType('buttons').prototype.buildWidget.apply(this, arguments);
 
@@ -923,7 +923,7 @@
 				$widgetContent.prepend(elements.closeButton);
 			}
 		},
-		onReady: function() {
+		onReady() {
 
 			var elements = this.getElements(),
 				settings = this.getSettings();
@@ -939,7 +939,7 @@
 	}));
 
 	DialogsManager.addWidgetType('confirm', DialogsManager.getWidgetType('lightbox').extend('confirm', {
-		onReady: function() {
+		onReady() {
 
 			DialogsManager.getWidgetType('lightbox').prototype.onReady.apply(this, arguments);
 
@@ -949,7 +949,7 @@
 			this.addButton({
 				name: 'cancel',
 				text: strings.cancel,
-				callback: function(widget) {
+				callback(widget) {
 
 					widget.trigger('cancel');
 				},
@@ -959,14 +959,14 @@
 			this.addButton({
 				name: 'ok',
 				text: strings.confirm,
-				callback: function(widget) {
+				callback(widget) {
 
 					widget.trigger('confirm');
 				},
 				focus: !isDefaultCancel
 			});
 		},
-		getDefaultSettings: function() {
+		getDefaultSettings() {
 
 			var settings = DialogsManager.getWidgetType('lightbox').prototype.getDefaultSettings.apply(this, arguments);
 
@@ -982,7 +982,7 @@
 	}));
 
 	DialogsManager.addWidgetType('alert', DialogsManager.getWidgetType('lightbox').extend('alert', {
-		onReady: function() {
+		onReady() {
 
 			DialogsManager.getWidgetType('lightbox').prototype.onReady.apply(this, arguments);
 
@@ -991,13 +991,13 @@
 			this.addButton({
 				name: 'ok',
 				text: strings.confirm,
-				callback: function(widget) {
+				callback(widget) {
 
 					widget.trigger('confirm');
 				}
 			});
 		},
-		getDefaultSettings: function() {
+		getDefaultSettings() {
 
 			var settings = DialogsManager.getWidgetType('lightbox').prototype.getDefaultSettings.apply(this, arguments);
 
